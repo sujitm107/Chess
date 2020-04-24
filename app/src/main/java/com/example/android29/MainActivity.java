@@ -2,10 +2,12 @@ package com.example.android29;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playButtonPressed(View view){
-        Log.i("Message: ", "Play Button Pressed");
 
-
+        Toast.makeText(this, "Play Button Pressed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ChessMatchActivity.class);
+        startActivity(intent);
 
     }
 
