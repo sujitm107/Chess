@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 public class ChessMatchActivity extends AppCompatActivity {
 
@@ -20,5 +21,30 @@ public class ChessMatchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
+    public void resignButtonPressed(View view){
+
+        Toast.makeText(this, "Resign Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void undoButtonPressed(View view){
+
+        Toast.makeText(this, "Undo Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void drawButtonPressed(View view){
+
+        Toast.makeText(this, "Draw Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+    public void aiButtonPressed(View view){
+
+        Toast.makeText(this, "AI Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+
+
 
 }

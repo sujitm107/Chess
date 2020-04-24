@@ -3,6 +3,7 @@ package com.example.android29;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Play Button Pressed", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ChessMatchActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void matchesButtonPressed(View view){
+
+        Toast.makeText(this, "Previous Matches Button Pressed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RecordingsActivity.class);
         startActivity(intent);
 
     }
