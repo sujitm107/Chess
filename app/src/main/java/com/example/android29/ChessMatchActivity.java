@@ -5,8 +5,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class ChessMatchActivity extends AppCompatActivity {
@@ -21,11 +25,31 @@ public class ChessMatchActivity extends AppCompatActivity {
         //activates the up arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setChessBoard();
+
+        androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
+
+        int childCount = board.getChildCount();
+        for(int i = 0; i < childCount; i++){
+            androidx.appcompat.widget.AppCompatImageView container = (androidx.appcompat.widget.AppCompatImageView) board.getChildAt(i);
+            container.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View view){
+                    System.out.println("Board clicked");
+//                  String clickedCell = view.getResources().getResourceEntryName(view.getId());
+                    System.out.print("Cell clicked : " + view.getResources().getResourceEntryName(view.getId()));
+                }
+            });
+        }
+
     }
+
+   //public void chessBoardClicked(View view){
+
+   // }
 
     public void resignButtonPressed(View view){
 
         Toast.makeText(this, "Resign Button Pressed", Toast.LENGTH_SHORT).show();
+
 
     }
 
