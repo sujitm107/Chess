@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 public class ChessMatchActivity extends AppCompatActivity {
 
+    View view1;
+    View view2;
+
+    boolean start = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,24 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         Log.i("Position", view.toString() );
 
+        if(start){
+            view1 = view;
+            start = false;
+        } else {
+            view2 = view;
+        }
+
+        if(view1 != null && view2 != null) {
+            Log.i("Moving: ", view1.toString() + " to " + view2.toString());
+
+            ImageView startimg = (ImageView) view1.findViewById(view1.getId());
+            ImageView destimg = (ImageView) view2.findViewById(view2.getId());
+            
+
+            view1 = null;
+            view2 = null;
+            start = true;
+        }
 
     }
 
