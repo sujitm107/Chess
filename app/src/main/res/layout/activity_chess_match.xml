@@ -29,384 +29,454 @@
                 android:id="@+id/a8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h8ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h7ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h6ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
+                android:background="#FFFFFF"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h5ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h4ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h3ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h2ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/a1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/b1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/c1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/d1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/e1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/f1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/g1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
                 android:id="@+id/h1ImageView"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
+                android:onClick="tapped"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
         </androidx.gridlayout.widget.GridLayout>

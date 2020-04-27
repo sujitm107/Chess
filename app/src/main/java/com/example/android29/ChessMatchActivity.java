@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -28,23 +29,16 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
 
-        int childCount = board.getChildCount();
-        for(int i = 0; i < childCount; i++){
-            androidx.appcompat.widget.AppCompatImageView container = (androidx.appcompat.widget.AppCompatImageView) board.getChildAt(i);
-            container.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View view){
-                    System.out.println("Board clicked");
-//                  String clickedCell = view.getResources().getResourceEntryName(view.getId());
-                    System.out.print("Cell clicked : " + view.getResources().getResourceEntryName(view.getId()));
-                }
-            });
-        }
+        Log.i("state:", "running");
 
     }
 
-   //public void chessBoardClicked(View view){
+    public void tapped(View view){
 
-   // }
+        Log.i("Position", view.toString() );
+
+
+    }
 
     public void resignButtonPressed(View view){
 
