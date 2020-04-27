@@ -52,9 +52,12 @@ public class ChessMatchActivity extends AppCompatActivity {
         if(view1 != null && view2 != null) {
             Log.i("Moving: ", view1.toString() + " to " + view2.toString());
 
-            ImageView startimg = (ImageView) view1.findViewById(view1.getId());
-            ImageView destimg = (ImageView) view2.findViewById(view2.getId());
-            
+            ImageView startimg = (ImageView) view1;
+            ImageView destimg = (ImageView) view2;
+
+            //swapping images
+            destimg.setImageDrawable(startimg.getDrawable());
+            startimg.setImageResource(android.R.color.transparent);
 
             view1 = null;
             view2 = null;
