@@ -23,7 +23,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     View view2;
 
     boolean start = true;
-    boolean whiteTurn = true;
+    boolean isWhiteTurn = true;
 
     Chess chess = new Chess();
 
@@ -60,12 +60,16 @@ public class ChessMatchActivity extends AppCompatActivity {
             move += view.getTag().toString();
         }
 
-        if(!Chess.start(move)){
-            return;
-        }
 
         if(view1 != null && view2 != null) {
+            String moveResult = this.chess.start(move, isWhiteTurn);
 
+            Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+
+            if(moveResult.equals("invalid")){
+                move = "";
+                return;
+            }
 
             Log.i("Moving: ", move);
 
@@ -80,14 +84,14 @@ public class ChessMatchActivity extends AppCompatActivity {
             view2 = null;
             start = true;
             move = "";
-            whiteTurn = !whiteTurn;
+            isWhiteTurn = !isWhiteTurn;
         }
 
     }
 
     public void resignButtonPressed(View view){
 
-        if(whiteTurn){
+        if(isWhiteTurn){
             Toast.makeText(this, "Black Wins", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "White Wins", Toast.LENGTH_SHORT).show();

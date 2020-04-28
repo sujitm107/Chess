@@ -18,12 +18,11 @@ public class Chess {
     static Piece lastMove;
     private static Piece whiteKing;
     private static Piece blackKing;
+    private Piece[][] board;
 
     public Chess(){
-        Piece[][] board = new Piece[8][8];
-
-        setBoard(board);
-
+        board = new Piece[8][8];
+        setBoard(this.board);
         whiteKing = board[7][4];
         blackKing = board[0][4];
     }
@@ -447,10 +446,10 @@ public class Chess {
         return isWhite ? whiteKing : blackKing;
     }
 
-    public static boolean start(String move){
+    public String start(String move, boolean isWhiteTurn){
         Log.i("Message", move);
-        boolean gameOn = true;
-        boolean isWhiteTurn = true;
+        //boolean gameOn = true;
+        //boolean isWhiteTurn = true;
 
         //Scanner in = new Scanner(System.in);
 
@@ -471,35 +470,36 @@ public class Chess {
         int nRank;
 
 
-        while(gameOn){ //can change to true actually
+        //while(gameOn){ //can change to true actually
             if(check){
                 System.out.println("\nCheck");
+                return "check";
             }
             if(isWhiteTurn){
                 System.out.print("\nWhite's Move: ");
-                move = in.nextLine();
+                //move = in.nextLine();
             } else{
                 System.out.print("\nBlack's Move: ");
-                move = in.nextLine();
+                //move = in.nextLine();
             }
 
-            if(move.equals("resign")){
-                if(isWhiteTurn){
-                    System.out.println("\nBlack Wins");
-                } else {
-                    System.out.println("\nWhite Wins");
-                }
-                gameOn = false;
-                break; //-- gameOver;
-            }
-            else {
+//            if(move.equals("resign")){
+//                if(isWhiteTurn){
+//                    System.out.println("\nBlack Wins");
+//                } else {
+//                    System.out.println("\nWhite Wins");
+//                }
+//                gameOn = false;
+//                break; //-- gameOver;
+//            }
+            //else {
 
 
                 if(prevDraw == true){
                     if(move.equals("draw")){
-                        gameOn = false;
+                        //gameOn = false;
                         System.out.println("\ndraw");
-                        break; //game over
+                        return "Draw"; //game over
                     }
 
                     prevDraw = false;
@@ -521,7 +521,7 @@ public class Chess {
                 if(oFile == -1 || oRank == 8 || nFile == -1 || nRank == 8){ //we set Ranks to 8 bc lines 45 and 47
                     //System.out.println("MOVE IS OUT OF BOUNDS");
                     System.out.println("Illegal move, try again");
-                    continue;
+                    return "invalid";
                 }
 
 
@@ -556,12 +556,12 @@ public class Chess {
 
                     }else{
                         System.out.println("\nIllegal move, try again.");
-                        continue; // this should act as a redo
+                        return "invalid"; // this should act as a redo
                     }
                 } else {
                     //System.out.println("WE ARE ON LINE 104");
                     System.out.println("\nIllegal move, try again.");
-                    continue;
+                    return "invalid";
                 }
 
                 //invalid
@@ -571,7 +571,7 @@ public class Chess {
                     reverseMove(board, oFile, oRank, nFile, nRank, newPosition);
                     lastMove = board[oRank][oFile];
                     //we don't have to update the king's position here because we don't allow the king to put itself in check
-                    continue;
+                    return "invalid";
                 }
 
                 //opposite
@@ -582,12 +582,12 @@ public class Chess {
                     if(checkmate(board, isWhiteTurn ? blackKing : whiteKing)){
                         System.out.println("\nCheckmate");
                         System.out.println(isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins");
-                        break;
+                        return "Checkmate " + (isWhiteTurn ? "White Wins" : "Black Wins");
                     }
 
                 }
 
-            }
+            //}
 
             // System.out.println("BlackKing Position File "+blackKing.file+" Rank: "+blackKing.rank);
             //  System.out.println("WhiteKing Position File "+whiteKing.file+" Rank: "+whiteKing.rank);
@@ -599,9 +599,9 @@ public class Chess {
             printBoard(board);
 
             isWhiteTurn = !(isWhiteTurn);
-        }
+        //}
 
-        return true;
+        return "valid";
     }
 
 
