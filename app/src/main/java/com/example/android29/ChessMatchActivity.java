@@ -1,6 +1,9 @@
 package com.example.android29;
 
+
 import android.os.Bundle;
+
+import com.example.android29.chess.Chess;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +23,11 @@ public class ChessMatchActivity extends AppCompatActivity {
     View view2;
 
     boolean start = true;
+    boolean whiteTurn = true;
+
+    Chess chess = new Chess();
+
+    String move = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +47,27 @@ public class ChessMatchActivity extends AppCompatActivity {
     }
 
     public void tapped(View view){
-
-        Log.i("Position", view.toString() );
+        Log.i("Position", view.getTag().toString() );
 
         if(start){
             view1 = view;
+            move += view.getTag().toString()+" ";
             start = false;
         } else {
+            //dest view
             view2 = view;
+
+            move += view.getTag().toString();
+        }
+
+        if(!Chess.start(move)){
+            return;
         }
 
         if(view1 != null && view2 != null) {
-            Log.i("Moving: ", view1.toString() + " to " + view2.toString());
+
+
+            Log.i("Moving: ", move);
 
             ImageView startimg = (ImageView) view1;
             ImageView destimg = (ImageView) view2;
@@ -62,14 +79,19 @@ public class ChessMatchActivity extends AppCompatActivity {
             view1 = null;
             view2 = null;
             start = true;
+            move = "";
+            whiteTurn = !whiteTurn;
         }
 
     }
 
     public void resignButtonPressed(View view){
 
-        Toast.makeText(this, "Resign Button Pressed", Toast.LENGTH_SHORT).show();
-
+        if(whiteTurn){
+            Toast.makeText(this, "Black Wins", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "White Wins", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
