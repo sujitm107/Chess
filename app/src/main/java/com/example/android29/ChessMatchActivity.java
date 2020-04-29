@@ -67,7 +67,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
 
             if(moveResult.equals("invalid")){
-                move = "";
+                reset();
                 return;
             }
 
@@ -80,13 +80,17 @@ public class ChessMatchActivity extends AppCompatActivity {
             destimg.setImageDrawable(startimg.getDrawable());
             startimg.setImageResource(android.R.color.transparent);
 
-            view1 = null;
-            view2 = null;
-            start = true;
-            move = "";
+            reset();
             isWhiteTurn = !isWhiteTurn;
         }
 
+    }
+
+    public void reset(){
+        view1 = null;
+        view2 = null;
+        start = true;
+        move = "";
     }
 
     public void resignButtonPressed(View view){

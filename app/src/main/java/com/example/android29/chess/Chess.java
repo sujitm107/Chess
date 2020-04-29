@@ -471,10 +471,10 @@ public class Chess {
 
 
         //while(gameOn){ //can change to true actually
-            if(check){
-                System.out.println("\nCheck");
-                return "check";
-            }
+//            if(check){
+//                System.out.println("\nCheck");
+//                return "check";
+//            }
             if(isWhiteTurn){
                 System.out.print("\nWhite's Move: ");
                 //move = in.nextLine();
@@ -584,7 +584,7 @@ public class Chess {
                         System.out.println(isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins");
                         return "Checkmate " + (isWhiteTurn ? "White Wins" : "Black Wins");
                     }
-
+                    return "check";
                 }
 
             //}
