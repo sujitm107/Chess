@@ -18,6 +18,7 @@ public class RecordedMatches implements Serializable {
     private static RecordedMatches recordedMatchesList = new RecordedMatches();
 
     private ArrayList<MatchNode> matches = new ArrayList<MatchNode>();
+
     public static final String storeDir = "R.raw";
     public static final String storeFile = "matches.dat";
     static final long serialVersionUID = 1L;

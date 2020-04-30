@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecordedMatches.MatchNode m = new RecordedMatches.MatchNode("match 1", new ArrayList<String>());
-        RecordedMatches.getInstance().addMatch(m);
 
     }
 
