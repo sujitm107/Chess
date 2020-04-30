@@ -8,7 +8,11 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+
+import java.io.EOFException;
+import java.io.IOException;
 
 public class RecordingsActivity extends AppCompatActivity {
 
@@ -19,6 +23,9 @@ public class RecordingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
+
+        Log.i("Match", RecordedMatches.getInstance().getMatches().get(0).toString());
     }
 
 }

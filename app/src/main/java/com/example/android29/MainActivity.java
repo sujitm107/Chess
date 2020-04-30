@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,8 +20,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //This is Rachana's Comment
-        //This is Sujit's Comment
+        RecordedMatches.MatchNode m = new RecordedMatches.MatchNode("match 1", new ArrayList<String>());
+        RecordedMatches.getInstance().addMatch(m);
+
     }
 
     public void playButtonPressed(View view){
