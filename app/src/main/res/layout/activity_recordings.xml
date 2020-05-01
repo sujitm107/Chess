@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginTop="24dp"
+            android:onClick="save"
             android:text="Title"
             app:layout_constraintStart_toEndOf="@+id/matchesListView"
             app:layout_constraintStart_toStartOf="parent"

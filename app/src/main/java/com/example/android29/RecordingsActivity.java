@@ -15,8 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +46,7 @@ public class RecordingsActivity extends AppCompatActivity {
         RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 2", new ArrayList<String>()));
         RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 3", new ArrayList<String>()));
 
+
         final ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
@@ -57,4 +65,5 @@ public class RecordingsActivity extends AppCompatActivity {
 
     }
 
+    
 }

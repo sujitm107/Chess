@@ -1,32 +1,25 @@
 package com.example.android29;
 
-import android.content.Context;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecordedMatches implements Serializable {
+public class RecordedMatches  {
 
     //Using singleton design pattern
     private static RecordedMatches recordedMatchesList = new RecordedMatches();
 
     private ArrayList<MatchNode> matches = new ArrayList<MatchNode>();
 
-    public static final String storeDir = "R.raw";
+    public static final String storeDir = "sampledata";
     public static final String storeFile = "matches.dat";
     static final long serialVersionUID = 1L;
 
     //inner class
-    static class MatchNode implements Serializable{
+    static class MatchNode {
         private String title;
-        //private Date date;
+        private Date date;
+        //Calendar.getInstance.getTime();
         private ArrayList<String> moves = new ArrayList<String>();
         static final long serialVersionUID = 1L;
 
@@ -51,17 +44,13 @@ public class RecordedMatches implements Serializable {
 
     }
 
-    public void writeApp() throws IOException {
-
+    public void writeApp() {
 
 
     }
 
-    public void readApp() throws IOException, ClassNotFoundException{
-        ObjectInputStream ois = new
-                ObjectInputStream( new FileInputStream(storeDir + File.separator + storeFile));
+    public void readApp() {
 
-        recordedMatchesList = (RecordedMatches) ois.readObject();
     }
 
     public ArrayList<MatchNode> getMatches(){
