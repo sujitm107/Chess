@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Play Button Pressed", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ChessMatchActivity.class);
+        ChessMatchActivity.isPlayback = false;
         startActivity(intent);
 
     }

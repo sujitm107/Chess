@@ -1,5 +1,6 @@
 package com.example.android29;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,7 +43,7 @@ public class RecordingsActivity extends AppCompatActivity {
 
         ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
 
-//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 1", new ArrayList<String>()));
+        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 1", new ArrayList<String>()));
 //        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 2", new ArrayList<String>()));
 //        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 3", new ArrayList<String>()));
 
@@ -59,7 +60,10 @@ public class RecordingsActivity extends AppCompatActivity {
 
                 String match = matches.get(i).toString();
 
-                Toast.makeText(RecordingsActivity.this, match, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(RecordingsActivity.this, match, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), ChessMatchActivity.class);
+                ChessMatchActivity.isPlayback = true;
+                startActivity(intent);
             }
         });
 

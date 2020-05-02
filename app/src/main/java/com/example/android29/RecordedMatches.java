@@ -29,6 +29,10 @@ public class RecordedMatches  {
             moves.add("e2 e4");
         }
 
+        public MatchNode(){
+            
+        }
+
         public ArrayList<String> getMoves(){
             return moves;
         }

@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -27,11 +28,13 @@ import java.util.ArrayList;
 
 public class ChessMatchActivity extends AppCompatActivity {
 
+    public static boolean isPlayback = false;
     View view1;
     View view2;
 
     boolean start = true;
     boolean isWhiteTurn = true;
+
 
     Chess chess = new Chess();
 
@@ -46,66 +49,102 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         //activates the up arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        RecordedMatches.MatchNode match = new RecordedMatches.MatchNode()
         setChessBoard();
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
 
         Log.i("state:", "running");
 
+        if(isPlayback){
+            Button resignButton = (Button) findViewById(R.id.resignButton);
+            resignButton.setEnabled(false);
+            resignButton.setVisibility(View.GONE);
+
+            Button undoButton = (Button) findViewById(R.id.undoButton);
+            undoButton.setEnabled(false);
+            undoButton.setVisibility(View.GONE);
+
+            Button drawButton = (Button) findViewById(R.id.drawButton);
+            drawButton.setEnabled(false);
+            drawButton.setVisibility(View.GONE);
+
+            Button aiButton = (Button) findViewById(R.id.aiButton);
+            aiButton.setEnabled(false);
+            aiButton.setVisibility(View.GONE);
+
+        }
+        else{
+            Button nextMoveButton = (Button) findViewById(R.id.nextButton);
+            nextMoveButton.setEnabled(false);
+            nextMoveButton.setVisibility(View.GONE);
+
+            Button prevMoveButton = (Button) findViewById(R.id.prevButton);
+            prevMoveButton.setEnabled(false);
+            prevMoveButton.setVisibility(View.GONE);
+        }
+
     }
 
     public void tapped(View view){
-        Log.i("Position", view.getTag().toString() );
-
-        if(start){
-            view1 = view;
-            move += view.getTag().toString()+" ";
-            start = false;
-        } else {
-            //dest view
-            view2 = view;
-
-            move += view.getTag().toString();
+        if(isPlayback){
+            return;
         }
+        else{
+            Log.i("Position", view.getTag().toString() );
 
+            if(start){
+                view1 = view;
+                move += view.getTag().toString()+" ";
+                start = false;
+            } else {
+                //dest view
+                view2 = view;
 
-        if(view1 != null && view2 != null) {
-            String moveResult = this.chess.start(move, isWhiteTurn);
-
-            Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
-
-            if(moveResult.equals("invalid")){
-                reset();
-                return;
+                move += view.getTag().toString();
             }
 
-            if(moveResult.length() > 9){
-                String isCheckmate =  moveResult.substring(0, 9);
-                if(isCheckmate.equals("Checkmate")){
-                    Runnable r = new Runnable() {
-                        @Override
-                        public void run() {
-                            saveGame();
-                            return;
-                        }
-                    };
-                    Handler h = new Handler();
-                    h.postDelayed(r, 3000);
+
+            if(view1 != null && view2 != null) {
+                String moveResult = this.chess.start(move, isWhiteTurn);
+
+                Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+
+                if(moveResult.equals("invalid")){
+                    reset();
+                    return;
                 }
+
+                if(moveResult.length() > 9){
+                    String isCheckmate =  moveResult.substring(0, 9);
+                    if(isCheckmate.equals("Checkmate")){
+                        Runnable r = new Runnable() {
+                            @Override
+                            public void run() {
+                                saveGame();
+                                return;
+                            }
+                        };
+                        Handler h = new Handler();
+                        h.postDelayed(r, 3000);
+                    }
+                }
+
+                Log.i("Moving: ", move);
+
+                ImageView startimg = (ImageView) view1;
+                ImageView destimg = (ImageView) view2;
+
+                //swapping images
+                destimg.setImageDrawable(startimg.getDrawable());
+                startimg.setImageResource(android.R.color.transparent);
+
+                reset();
+                isWhiteTurn = !isWhiteTurn;
             }
-
-            Log.i("Moving: ", move);
-
-            ImageView startimg = (ImageView) view1;
-            ImageView destimg = (ImageView) view2;
-
-            //swapping images
-            destimg.setImageDrawable(startimg.getDrawable());
-            startimg.setImageResource(android.R.color.transparent);
-
-            reset();
-            isWhiteTurn = !isWhiteTurn;
         }
+
 
     }
 
@@ -176,6 +215,16 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void aiButtonPressed(View view){
 
         Toast.makeText(this, "AI Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void nextMovePressed(View view){
+        Toast.makeText(this, "Next Move Button Pressed", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void prevMovePressed(View view){
+        Toast.makeText(this, "Prev Move Button Pressed", Toast.LENGTH_SHORT).show();
 
     }
 
