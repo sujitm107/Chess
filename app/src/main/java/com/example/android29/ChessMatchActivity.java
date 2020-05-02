@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
@@ -125,12 +126,26 @@ public class ChessMatchActivity extends AppCompatActivity {
 //                    Runnable r = new Runnable() {
 //                        @Override
 //                        public void run() {
-                            saveGame();
-                            return;
+//                            saveGame();
+//                            return;
 //                        }
 //                    };
 //                    Handler h = new Handler();
 //                    h.postDelayed(r, 3000);
+                    Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+
+                    new CountDownTimer(3000,1000){
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            saveGame();
+                            return;
+                        }
+                    }.start();
                 }
 
                 Log.i("Moving: ", move);
@@ -143,16 +158,6 @@ public class ChessMatchActivity extends AppCompatActivity {
                 //swapping images
                 destimg.setImageDrawable(startimg.getDrawable());
                 startimg.setImageResource(android.R.color.transparent);
-
-                if(moveResult.equals("Checkmate")){
-//                    try {
-//                        Thread.sleep(5000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    saveGame();
-                }
 
                 reset();
                 isWhiteTurn = !isWhiteTurn;
