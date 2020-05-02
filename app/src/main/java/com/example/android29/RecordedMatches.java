@@ -7,7 +7,7 @@ import java.util.Date;
 public class RecordedMatches  {
 
     //Using singleton design pattern
-    private static RecordedMatches recordedMatchesList = new RecordedMatches();
+    public static RecordedMatches recordedMatchesList = new RecordedMatches();
 
     private ArrayList<MatchNode> matches = new ArrayList<MatchNode>();
 
@@ -26,11 +26,11 @@ public class RecordedMatches  {
         public MatchNode(String title, ArrayList<String> moves){
             this.title = title;
             this.moves = moves;
-            moves.add("e2 e4");
+           // moves.add("e2 e4");
         }
 
         public MatchNode(){
-            
+            this.moves = new ArrayList<>();
         }
 
         public ArrayList<String> getMoves(){
@@ -38,6 +38,28 @@ public class RecordedMatches  {
         }
 
         public String toString(){
+            return title;
+        }
+
+        public void setTitle(String title){
+            this.title = title;
+        }
+
+        public void addMove(String move){
+            this.moves.add(move);
+        }
+
+        public void undoMove(){
+            this.moves.remove(moves.size()-1);
+        }
+
+        public void printMoves(){
+            for(int i = 0; i < moves.size();i++){
+                System.out.println("Move: " + moves.get(i));
+            }
+        }
+
+        public String getTitle(){
             return title;
         }
 
