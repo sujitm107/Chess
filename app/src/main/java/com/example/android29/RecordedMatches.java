@@ -46,6 +46,10 @@ public class RecordedMatches  {
             this.title = title;
         }
 
+        public void setMoves(ArrayList<String> moves){
+            this.moves = moves;
+        }
+
         public void addMove(String move){
             this.moves.add(move);
         }

@@ -606,4 +606,16 @@ public class Chess {
     }
 
 
+    public void movePlayBack(String move){
+        String[] moves = move.split(" ");
+        int oFile = getValue(moves[0].charAt(0));
+        int oRank = 7-getValue(moves[0].charAt(1));
+        int nFile = getValue(moves[1].charAt(0));
+        int nRank = 7-getValue(moves[1].charAt(1));
+
+        board[nRank][nFile] = board[oRank][oFile];
+        board[oRank][oFile] = null;
+
+        System.out.println("IN MOVEPLAYBACK");
+    }
 }

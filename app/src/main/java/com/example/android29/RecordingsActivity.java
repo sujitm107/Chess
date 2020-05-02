@@ -32,6 +32,9 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class RecordingsActivity extends AppCompatActivity {
+//
+//    public static final String title = "title";
+//    public static final ArrayList<String> moves = "moves";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +61,20 @@ public class RecordingsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String match = matches.get(i).toString();
-
+                String matchName = matches.get(i).toString();
+                RecordedMatches.MatchNode match = (RecordedMatches.MatchNode) adapterView.getItemAtPosition(i);
+               // match.printMoves();
                // Toast.makeText(RecordingsActivity.this, match, Toast.LENGTH_SHORT).show();
+
+                Bundle b = new Bundle();
+                b.putString("title", match.toString());
+                b.putStringArrayList("moves", match.getMoves());
+
                 Intent intent = new Intent(view.getContext(), ChessMatchActivity.class);
+                intent.putExtras(b);
+
                 ChessMatchActivity.isPlayback = true;
+
                 startActivity(intent);
             }
         });

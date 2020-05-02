@@ -2,6 +2,7 @@ package com.example.android29;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.android29.chess.Chess;
@@ -16,16 +17,21 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputType;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.example.android29.chess.Chess.getValue;
 
 public class ChessMatchActivity extends AppCompatActivity {
 
@@ -36,6 +42,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     boolean start = true;
     boolean isWhiteTurn = true;
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
+    RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
 
     int currentMoveIndex;
 
@@ -59,6 +66,9 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
 
+        //Handle Back Button
+
+
         Log.i("state:", "running");
 
         if(isPlayback){
@@ -79,6 +89,10 @@ public class ChessMatchActivity extends AppCompatActivity {
             aiButton.setEnabled(false);
             aiButton.setVisibility(View.GONE);
 
+            Intent in = getIntent();
+            Bundle b = in.getExtras();
+            playBackMatch.setTitle(b.getString("title"));
+            playBackMatch.setMoves(b.getStringArrayList("moves"));
         }
         else{
             Button nextMoveButton = (Button) findViewById(R.id.nextButton);
@@ -122,16 +136,6 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }
 
                 if(moveResult.equals("Checkmate")){
-//                    match.addMove(move);
-//                    Runnable r = new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            saveGame();
-//                            return;
-//                        }
-//                    };
-//                    Handler h = new Handler();
-//                    h.postDelayed(r, 3000);
                     Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
 
                     new CountDownTimer(3000,1000){
@@ -163,8 +167,12 @@ public class ChessMatchActivity extends AppCompatActivity {
                 isWhiteTurn = !isWhiteTurn;
             }
         }
+    }
 
-
+    @Override
+    public void onBackPressed(){
+        System.out.println("back pressed");
+        Toast.makeText(this, "Back Pressed", Toast.LENGTH_SHORT).show();
     }
 
     public void reset(){
@@ -250,19 +258,56 @@ public class ChessMatchActivity extends AppCompatActivity {
     }
 
     public void nextMovePressed(View view){
-        Toast.makeText(this, "Next Move Button Pressed", Toast.LENGTH_SHORT).show();
-//        if(currentMoveIndex+1 < match.getMoves().size()){
-//            String move = match.getMoves().get(currentMoveIndex+1);
-//            System.out.println("NEXT PRESSED : " + move);
-//            //Make move
-//        }
-//        else{
-//            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
-//        }
+        if(currentMoveIndex+1 < playBackMatch.getMoves().size()){
+            String move = playBackMatch.getMoves().get(currentMoveIndex+1);
+            System.out.println("MOVE FROM PLAYBACK: " + move);
+
+            this.chess.movePlayBack(move);
+
+            String[] moves = move.split(" ");
+            String oldPosition = moves[0];
+            String newPosition = moves[1];
+
+            androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+            ImageView from = (ImageView) parentGrid.findViewWithTag(oldPosition);
+            ImageView to = (ImageView) parentGrid.findViewWithTag(newPosition);
+            //Swapping images
+            to.setImageDrawable(from.getDrawable());
+            from.setImageResource(android.R.color.transparent);
+
+            currentMoveIndex=currentMoveIndex+1;
+
+        }
+        else{
+            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void prevMovePressed(View view){
-        Toast.makeText(this, "Prev Move Button Pressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Prev Move Button Pressed", Toast.LENGTH_SHORT).show();
+        if(currentMoveIndex >=0){
+            String move = playBackMatch.getMoves().get(currentMoveIndex);
+            System.out.println("MOVE FROM PLAYBACK: " + move);
+
+            this.chess.movePlayBack(move);
+
+            String[] moves = move.split(" ");
+            String oldPosition = moves[0];
+            String newPosition = moves[1];
+
+            androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+            ImageView from = (ImageView) parentGrid.findViewWithTag(newPosition);
+            ImageView to = (ImageView) parentGrid.findViewWithTag(oldPosition);
+            //Swapping images
+            to.setImageDrawable(from.getDrawable());
+            from.setImageResource(android.R.color.transparent);
+
+            currentMoveIndex=currentMoveIndex-1;
+
+        }
+        else{
+            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
