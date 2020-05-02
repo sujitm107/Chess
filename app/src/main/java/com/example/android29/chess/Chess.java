@@ -5,6 +5,8 @@ package com.example.android29.chess;
 
 import android.util.Log;
 
+import com.example.android29.ChessMatchActivity;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -580,8 +582,7 @@ public class Chess {
                 if(check){
                     // System.out.println("running");
                     if(checkmate(board, isWhiteTurn ? blackKing : whiteKing)){
-                        System.out.println("\nCheckmate");
-                        System.out.println(isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins");
+                        System.out.println("\nCheckmate" + (isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins"));
                         return "Checkmate " + (isWhiteTurn ? "White Wins" : "Black Wins");
                     }
                     return "check";

@@ -1,21 +1,29 @@
 package com.example.android29;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.example.android29.chess.Chess;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ChessMatchActivity extends AppCompatActivity {
 
@@ -71,6 +79,21 @@ public class ChessMatchActivity extends AppCompatActivity {
                 return;
             }
 
+            if(moveResult.length() > 9){
+                String isCheckmate =  moveResult.substring(0, 9);
+                if(isCheckmate.equals("Checkmate")){
+                    Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            saveGame();
+                            return;
+                        }
+                    };
+                    Handler h = new Handler();
+                    h.postDelayed(r, 3000);
+                }
+            }
+
             Log.i("Moving: ", move);
 
             ImageView startimg = (ImageView) view1;
@@ -101,6 +124,42 @@ public class ChessMatchActivity extends AppCompatActivity {
             Toast.makeText(this, "White Wins", Toast.LENGTH_SHORT).show();
         }
 
+        saveGame();
+    }
+
+    public void saveGame(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        String winner = isWhiteTurn ? "Black Wins! " : "White Wins! ";
+
+        alert.setTitle( winner + "If you would like to save your match, enter a title.");
+
+        final EditText gameTitle = new EditText(this);
+        gameTitle.setInputType(InputType.TYPE_CLASS_TEXT);
+        alert.setView(gameTitle);
+
+        alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String title = gameTitle.getText().toString();
+                System.out.println("GAME TITLE: " + title);
+                RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode(title, new ArrayList<String>()));
+                setChessBoard();
+                isWhiteTurn = true;
+                reset();
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println("Not saving game");
+                setChessBoard();
+                isWhiteTurn = true;
+                reset();
+            }
+        });
+
+        alert.show();
     }
 
     public void undoButtonPressed(View view){

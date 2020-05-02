@@ -42,9 +42,9 @@ public class RecordingsActivity extends AppCompatActivity {
 
         ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
 
-        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 1", new ArrayList<String>()));
-        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 2", new ArrayList<String>()));
-        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 3", new ArrayList<String>()));
+//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 1", new ArrayList<String>()));
+//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 2", new ArrayList<String>()));
+//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 3", new ArrayList<String>()));
 
 
         final ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
