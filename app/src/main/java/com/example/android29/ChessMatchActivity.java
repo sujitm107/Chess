@@ -120,18 +120,18 @@ public class ChessMatchActivity extends AppCompatActivity {
                     return;
                 }
 
-//                if(moveResult.equals("Checkmate")){
+                if(moveResult.equals("Checkmate")){
 //                    match.addMove(move);
 //                    Runnable r = new Runnable() {
 //                        @Override
 //                        public void run() {
-//                            saveGame();
-//                            return;
+                            saveGame();
+                            return;
 //                        }
 //                    };
 //                    Handler h = new Handler();
 //                    h.postDelayed(r, 3000);
-//                }
+                }
 
                 Log.i("Moving: ", move);
                 match.addMove(move);

@@ -30,6 +30,7 @@ public class RecordedMatches  {
         }
 
         public MatchNode(){
+
             this.moves = new ArrayList<>();
         }
 
@@ -57,10 +58,6 @@ public class RecordedMatches  {
             for(int i = 0; i < moves.size();i++){
                 System.out.println("Move: " + moves.get(i));
             }
-        }
-
-        public String getTitle(){
-            return title;
         }
 
     }
