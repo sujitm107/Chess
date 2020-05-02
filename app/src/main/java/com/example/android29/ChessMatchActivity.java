@@ -34,7 +34,9 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     boolean start = true;
     boolean isWhiteTurn = true;
+    RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
 
+    int currentMoveIndex;
 
     Chess chess = new Chess();
 
@@ -50,7 +52,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         //activates the up arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecordedMatches.MatchNode match = new RecordedMatches.MatchNode()
+
         setChessBoard();
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
@@ -58,6 +60,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         Log.i("state:", "running");
 
         if(isPlayback){
+            currentMoveIndex = -1;
             Button resignButton = (Button) findViewById(R.id.resignButton);
             resignButton.setEnabled(false);
             resignButton.setVisibility(View.GONE);
@@ -117,6 +120,7 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }
 
                 if(moveResult.length() > 9){
+                    match.addMove(move);
                     String isCheckmate =  moveResult.substring(0, 9);
                     if(isCheckmate.equals("Checkmate")){
                         Runnable r = new Runnable() {
@@ -132,6 +136,8 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }
 
                 Log.i("Moving: ", move);
+                match.addMove(move);
+                match.printMoves();
 
                 ImageView startimg = (ImageView) view1;
                 ImageView destimg = (ImageView) view2;
@@ -179,16 +185,23 @@ public class ChessMatchActivity extends AppCompatActivity {
         alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String title = gameTitle.getText().toString();
-                System.out.println("GAME TITLE: " + title);
-                RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode(title, new ArrayList<String>()));
-                setChessBoard();
-                isWhiteTurn = true;
-                reset();
+                String title = gameTitle.getText().toString().trim();
+                if(title.equals("")){
+                    Toast.makeText(getApplicationContext(), "Must add a title!", Toast.LENGTH_SHORT).show();
+                    saveGame();
+                }else{
+                    System.out.println("GAME TITLE: " + title);
+                    match.setTitle(title);
+                    //RecordedMatches.getInstance().addMatch(match);
+                    RecordedMatches.recordedMatchesList.addMatch(match);
+                    setChessBoard();
+                    isWhiteTurn = true;
+                    reset();
+                }
             }
         });
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Don't Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.out.println("Not saving game");
@@ -204,7 +217,12 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void undoButtonPressed(View view){
 
         Toast.makeText(this, "Undo Button Pressed", Toast.LENGTH_SHORT).show();
-
+        if(match.getMoves().size() == 0){
+            Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
+        }else{
+            match.undoMove();
+            match.printMoves();
+        }
     }
 
     public void drawButtonPressed(View view){
@@ -220,7 +238,14 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     public void nextMovePressed(View view){
         Toast.makeText(this, "Next Move Button Pressed", Toast.LENGTH_SHORT).show();
-
+//        if(currentMoveIndex+1 < match.getMoves().size()){
+//            String move = match.getMoves().get(currentMoveIndex+1);
+//            System.out.println("NEXT PRESSED : " + move);
+//            //Make move
+//        }
+//        else{
+//            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     public void prevMovePressed(View view){
