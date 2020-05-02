@@ -52,11 +52,8 @@ public class ChessMatchActivity extends AppCompatActivity {
         //activates the up arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-<<<<<<< HEAD
         RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
-=======
 
->>>>>>> da70fbdedd42ca05d1335e56eed25a8958d79ccc
         setChessBoard();
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
@@ -123,21 +120,18 @@ public class ChessMatchActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(moveResult.length() > 9){
-                    match.addMove(move);
-                    String isCheckmate =  moveResult.substring(0, 9);
-                    if(isCheckmate.equals("Checkmate")){
-                        Runnable r = new Runnable() {
-                            @Override
-                            public void run() {
-                                saveGame();
-                                return;
-                            }
-                        };
-                        Handler h = new Handler();
-                        h.postDelayed(r, 3000);
-                    }
-                }
+//                if(moveResult.equals("Checkmate")){
+//                    match.addMove(move);
+//                    Runnable r = new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            saveGame();
+//                            return;
+//                        }
+//                    };
+//                    Handler h = new Handler();
+//                    h.postDelayed(r, 3000);
+//                }
 
                 Log.i("Moving: ", move);
                 match.addMove(move);
@@ -149,6 +143,16 @@ public class ChessMatchActivity extends AppCompatActivity {
                 //swapping images
                 destimg.setImageDrawable(startimg.getDrawable());
                 startimg.setImageResource(android.R.color.transparent);
+
+                if(moveResult.equals("Checkmate")){
+//                    try {
+//                        Thread.sleep(5000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+
+                    saveGame();
+                }
 
                 reset();
                 isWhiteTurn = !isWhiteTurn;
