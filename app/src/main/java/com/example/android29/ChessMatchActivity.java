@@ -50,7 +50,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         //activates the up arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecordedMatches.MatchNode match = new RecordedMatches.MatchNode()
+        RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
         setChessBoard();
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
