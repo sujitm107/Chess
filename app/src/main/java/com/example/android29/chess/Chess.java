@@ -3,9 +3,11 @@
  */
 package com.example.android29.chess;
 
+import android.media.Image;
 import android.util.Log;
 
 import com.example.android29.ChessMatchActivity;
+import com.example.android29.R;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -21,6 +23,8 @@ public class Chess {
     private static Piece whiteKing;
     private static Piece blackKing;
     private Piece[][] board;
+
+    static Piece lastKilled;
 
     public Chess(){
         board = new Piece[8][8];
@@ -122,6 +126,8 @@ public class Chess {
                         }
 
                       // System.out.println(board[oRank][oFile]);
+
+                        //if You are killing something
 
                         board[nRank][nFile] = board[oRank][oFile];
                         board[oRank][oFile] = null;
@@ -540,7 +546,15 @@ public class Chess {
 
                         }
 
-                        // System.out.println(board[oRank][oFile]);
+
+                        //if you are killing something
+                        if(board[nRank][nFile]!=null){
+                            lastKilled = board[nRank][nFile];
+                        }
+                        else{
+                            lastKilled = null;
+                        }
+
 
                         board[nRank][nFile] = board[oRank][oFile];
                         board[oRank][oFile] = null;
@@ -662,5 +676,71 @@ public class Chess {
         board[oRank][oFile] = null;
 
         System.out.println("IN MOVEPLAYBACK");
+    }
+
+    public void undoMove(String move){
+        String[] moves = move.split(" ");
+        int oFile = getValue(moves[0].charAt(0));
+        int oRank = 7-getValue(moves[0].charAt(1));
+        int nFile = getValue(moves[1].charAt(0));
+        int nRank = 7-getValue(moves[1].charAt(1));
+
+        if(board[nRank][nFile] instanceof Pawn && ((Math.abs(nRank-oRank)==2) || (Math.abs(nRank-oRank)==1 && (oRank == 1 || oRank == 6)))){
+            System.out.println("UNDO IS AN INSTANCE OF PAWN");
+            board[nRank][nFile].hasMoved = false;
+        }
+
+        board[oRank][oFile] = board[nRank][nFile];
+        board[nRank][nFile] = lastKilled;
+        if(lastKilled != null){
+            System.out.println("PIECE LAST KILLED: " + lastKilled.name);
+        }else{
+            System.out.println("LAST KILLED IS NULL");
+        }
+        printBoard(board);
+
+    }
+
+    public int getLastKilled(){
+        if(lastKilled == null){
+            return android.R.color.transparent;
+        }
+        else if(lastKilled.name.equals("bK")){
+            return R.drawable.bk;
+        }
+        else if(lastKilled.name.equals("bQ")){
+            return R.drawable.bq;
+        }
+        else if(lastKilled.name.equals("bN")){
+            return R.drawable.bn;
+        }
+        else if(lastKilled.name.equals("bB")){
+            return R.drawable.bb;
+        }
+        else if(lastKilled.name.equals("bR")){
+            return R.drawable.br;
+        }
+        else if(lastKilled.name.equals("bp")){
+            return R.drawable.bp;
+        }
+        else if(lastKilled.name.equals("wK")){
+            return R.drawable.wk;
+        }
+        else if(lastKilled.name.equals("wQ")){
+            return R.drawable.wq;
+        }
+        else if(lastKilled.name.equals("wN")){
+            return R.drawable.wn;
+        }
+        else if(lastKilled.name.equals("wB")){
+            return R.drawable.wb;
+        }
+        else if(lastKilled.name.equals("wR")){
+            return R.drawable.wr;
+        }
+        else if(lastKilled.name.equals("wp")){
+            return R.drawable.wp;
+        }
+        return android.R.color.transparent;
     }
 }

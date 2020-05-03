@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 
 import com.example.android29.chess.Chess;
@@ -48,6 +49,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     boolean isWhiteTurn = true;
     boolean checkFlag = true;
     boolean draw = false;
+    boolean justUndo;
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
     RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
 
@@ -175,6 +177,8 @@ public class ChessMatchActivity extends AppCompatActivity {
                 destimg.setImageDrawable(startimg.getDrawable());
                 startimg.setImageResource(android.R.color.transparent);
 
+                justUndo = false;
+
                 reset();
                 isWhiteTurn = !isWhiteTurn;
 
@@ -276,19 +280,46 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     public void undoButtonPressed(View view){
 
-        Toast.makeText(this, "Undo Button Pressed", Toast.LENGTH_SHORT).show();
-        if(match.getMoves().size() == 0){
-            Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
-        }else{
-            match.undoMove();
-            match.printMoves();
+       // Toast.makeText(this, "Undo Button Pressed", Toast.LENGTH_SHORT).show();
+
+        if(justUndo == true){
+            Toast.makeText(this, "Can only undo last move!", Toast.LENGTH_SHORT).show();
         }
+        else{
+            if(match.getMoves().size() == 0){
+                Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
+            }else{
+                ArrayList<String> movesArray = match.getMoves();
+                String moveToUndo = movesArray.get(movesArray.size()-1);
+                String[] oldAndNew = moveToUndo.split(" ");
+
+                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
+                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
+                //Swapping images
+
+                to.setImageDrawable(from.getDrawable());
+                //from.setImageResource(android.R.color.transparent);
+
+                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
+                putKilledPieceBack.setImageResource(chess.getLastKilled());
+
+
+                isWhiteTurn = !isWhiteTurn;
+                chess.undoMove(moveToUndo);
+                match.undoMove();
+                match.printMoves();
+                justUndo = true;
+            }
+        }
+
     }
 
     public void drawButtonPressed(View view){
 
         Toast.makeText(this, "Draw Button Pressed", Toast.LENGTH_SHORT).show();
         draw = !(draw);
+        justUndo = false;
 
     }
     public void aiButtonPressed(View view){
@@ -333,6 +364,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         destimg.setImageDrawable(startimg.getDrawable());
         startimg.setImageResource(android.R.color.transparent);
 
+        justUndo = false;
         reset();
         isWhiteTurn = !isWhiteTurn;
 
@@ -426,6 +458,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     public void setChessBoard(){
         //set chess board - black pieces
+        justUndo = false;
         isWhiteTurn = true;
         chess = new Chess();
         ImageView blackRook1 = (ImageView) findViewById(R.id.a8ImageView);
