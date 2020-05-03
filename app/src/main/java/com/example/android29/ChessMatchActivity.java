@@ -189,7 +189,6 @@ public class ChessMatchActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "White Wins", Toast.LENGTH_SHORT).show();
         }
-
         saveGame();
     }
 
@@ -313,6 +312,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     public void setChessBoard(){
         //set chess board - black pieces
+        isWhiteTurn = true;
         ImageView blackRook1 = (ImageView) findViewById(R.id.a8ImageView);
         blackRook1.setImageResource(R.drawable.br);
 
