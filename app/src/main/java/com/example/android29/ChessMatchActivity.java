@@ -49,7 +49,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     int currentMoveIndex;
 
-    Chess chess = new Chess();
+    Chess chess;
 
     String move = "";
 
@@ -143,6 +143,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
                 if(moveResult.equals("Checkmate")){
                     Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+                    System.out.println("Running timer");
 
                     new CountDownTimer(3000,1000){
 
@@ -152,6 +153,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
+                            System.out.println("Finished countdown");
                             saveGame();
                             return;
                         }
@@ -353,6 +355,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void setChessBoard(){
         //set chess board - black pieces
         isWhiteTurn = true;
+        chess = new Chess();
         ImageView blackRook1 = (ImageView) findViewById(R.id.a8ImageView);
         blackRook1.setImageResource(R.drawable.br);
 
