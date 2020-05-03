@@ -605,6 +605,10 @@ public class Chess {
         return "valid";
     }
 
+    public String makeAImove(){
+        return null;
+    }
+
 
     public void movePlayBack(String move){
         String[] moves = move.split(" ");

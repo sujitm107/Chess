@@ -261,17 +261,19 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         Toast.makeText(this, "AI Button Pressed", Toast.LENGTH_SHORT).show();
 
-        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-        int count = parentGrid.getChildCount();
+        String AImove = this.chess.makeAImove();
 
-        ArrayList<String> validMoves = new ArrayList<String>();
-
-        for(int i = 0; i < count; i++){
-            View child = parentGrid.getChildAt(i);
-            String tag = child.getTag().toString();
-
-
-        }
+//        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+//        int count = parentGrid.getChildCount();
+//
+//        ArrayList<String> validMoves = new ArrayList<String>();
+//
+//        for(int i = 0; i < count; i++){
+//            View child = parentGrid.getChildAt(i);
+//            String tag = child.getTag().toString();
+//
+//
+//        }
 
 
     }
