@@ -1,6 +1,7 @@
 package com.example.android29;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,9 +33,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class RecordingsActivity extends AppCompatActivity {
-//
-//    public static final String title = "title";
-//    public static final ArrayList<String> moves = "moves";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,14 @@ public class RecordingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ArrayList savedState = null;
+
+        if(savedInstanceState!=null && savedInstanceState.getSerializable("Matches")!=null){
+            savedState = (ArrayList) savedInstanceState.getSerializable("Matches");
+        }
+
+
+
         ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
 
 
@@ -52,7 +59,6 @@ public class RecordingsActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
 
         matchesListView.setAdapter(arrayAdapter);
-
         matchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -75,6 +81,7 @@ public class RecordingsActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     public void sortTitlePressed(View view){
@@ -88,6 +95,5 @@ public class RecordingsActivity extends AppCompatActivity {
     public void sortDatePressed(View view){
 
     }
-
-    
+  
 }

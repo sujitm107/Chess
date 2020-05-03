@@ -658,4 +658,5 @@ public class ChessMatchActivity extends AppCompatActivity {
         empty32.setImageResource(android.R.color.transparent);
     }
 
+
 }
