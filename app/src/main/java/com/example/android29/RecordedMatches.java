@@ -19,6 +19,7 @@ public class RecordedMatches  {
     static class MatchNode {
         private String title;
         private Date date;
+        private String winner;
         //Calendar.getInstance.getTime();
         private ArrayList<String> moves = new ArrayList<String>();
         static final long serialVersionUID = 1L;
@@ -36,6 +37,22 @@ public class RecordedMatches  {
 
         public ArrayList<String> getMoves(){
             return moves;
+        }
+
+        public String getWinner(){
+            return winner;
+        }
+
+        public void setDate(Date date){
+            this.date = date;
+        }
+
+        public Date getDate(){
+            return date;
+        }
+
+        public void setWinner(String winner){
+            this.winner = winner;
         }
 
         public String toString(){

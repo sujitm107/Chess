@@ -46,10 +46,6 @@ public class RecordingsActivity extends AppCompatActivity {
 
         ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
 
-        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 1", new ArrayList<String>()));
-//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 2", new ArrayList<String>()));
-//        RecordedMatches.getInstance().addMatch(new RecordedMatches.MatchNode("Match 3", new ArrayList<String>()));
-
 
         final ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
 
@@ -63,12 +59,12 @@ public class RecordingsActivity extends AppCompatActivity {
 
                 String matchName = matches.get(i).toString();
                 RecordedMatches.MatchNode match = (RecordedMatches.MatchNode) adapterView.getItemAtPosition(i);
-               // match.printMoves();
-               // Toast.makeText(RecordingsActivity.this, match, Toast.LENGTH_SHORT).show();
 
                 Bundle b = new Bundle();
                 b.putString("title", match.toString());
                 b.putStringArrayList("moves", match.getMoves());
+                b.putString("winner", match.getWinner());
+                b.putLong("Date", match.getDate().getTime());
 
                 Intent intent = new Intent(view.getContext(), ChessMatchActivity.class);
                 intent.putExtras(b);
@@ -78,6 +74,18 @@ public class RecordingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    public void sortTitlePressed(View view){
+        ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
+        ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
+
+
+    }
+
+    public void sortDatePressed(View view){
 
     }
 

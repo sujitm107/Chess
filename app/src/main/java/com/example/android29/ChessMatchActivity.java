@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.text.InputType;
 import android.text.Layout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.example.android29.chess.Chess.getValue;
 
@@ -93,6 +96,9 @@ public class ChessMatchActivity extends AppCompatActivity {
             Bundle b = in.getExtras();
             playBackMatch.setTitle(b.getString("title"));
             playBackMatch.setMoves(b.getStringArrayList("moves"));
+            playBackMatch.setWinner(b.getString("winner"));
+            Date date = new Date(b.getLong("date"));
+            playBackMatch.setDate(date);
         }
         else{
             Button nextMoveButton = (Button) findViewById(R.id.nextButton);
@@ -169,11 +175,6 @@ public class ChessMatchActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed(){
-        System.out.println("back pressed");
-        Toast.makeText(this, "Back Pressed", Toast.LENGTH_SHORT).show();
-    }
 
     public void reset(){
         view1 = null;
@@ -213,11 +214,14 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }else{
                     System.out.println("GAME TITLE: " + title);
                     match.setTitle(title);
-                    //RecordedMatches.getInstance().addMatch(match);
+                    match.setWinner(isWhiteTurn?"Black" : "White");
+                    Date date = Calendar.getInstance().getTime();
+                    match.setDate(date);
                     RecordedMatches.recordedMatchesList.addMatch(match);
                     setChessBoard();
                     isWhiteTurn = true;
                     reset();
+                    match = new RecordedMatches.MatchNode();
                 }
             }
         });
@@ -229,6 +233,7 @@ public class ChessMatchActivity extends AppCompatActivity {
                 setChessBoard();
                 isWhiteTurn = true;
                 reset();
+                match = new RecordedMatches.MatchNode();
             }
         });
 
@@ -255,6 +260,19 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         Toast.makeText(this, "AI Button Pressed", Toast.LENGTH_SHORT).show();
 
+        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+        int count = parentGrid.getChildCount();
+
+        ArrayList<String> validMoves = new ArrayList<String>();
+
+        for(int i = 0; i < count; i++){
+            View child = parentGrid.getChildAt(i);
+            String tag = child.getTag().toString();
+
+
+        }
+
+
     }
 
     public void nextMovePressed(View view){
@@ -279,7 +297,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         }
         else{
-            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, playBackMatch.getWinner() + " Wins!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -309,6 +327,28 @@ public class ChessMatchActivity extends AppCompatActivity {
             Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    //RESET BACK BUTTON
+    @Override
+    public Intent getParentActivityIntent(){
+        return getParentActivityIntentImpl();
+    }
+
+    @Override
+    public Intent getSupportParentActivityIntent(){
+        return getParentActivityIntentImpl();
+    }
+
+    private Intent getParentActivityIntentImpl(){
+        Intent i = null;
+
+        if(isPlayback){
+            i = new Intent(this, RecordingsActivity.class);
+        }else{
+            i = new Intent(this, MainActivity.class);
+        }
+        return i;
     }
 
     public void setChessBoard(){
