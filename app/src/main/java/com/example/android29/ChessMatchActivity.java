@@ -1,8 +1,10 @@
 package com.example.android29;
 
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.android29.chess.Chess;
@@ -44,6 +46,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     boolean start = true;
     boolean isWhiteTurn = true;
+    boolean checkFlag = true;
+    boolean draw = false;
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
     RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
 
@@ -173,8 +177,33 @@ public class ChessMatchActivity extends AppCompatActivity {
 
                 reset();
                 isWhiteTurn = !isWhiteTurn;
+
+                if(draw){
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setTitle("Would you like to draw?");
+
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveGame();
+                        }
+                    });
+
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            draw = false;
+                        }
+                    });
+
+                    alert.show();
+
+                }
+
             }
         }
+
+
     }
 
 
@@ -198,6 +227,10 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void saveGame(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         String winner = isWhiteTurn ? "Black Wins! " : "White Wins! ";
+
+        if(draw){
+            winner = "Draw!";
+        }
 
         alert.setTitle( winner + "If you would like to save your match, enter a title.");
 
@@ -255,27 +288,64 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void drawButtonPressed(View view){
 
         Toast.makeText(this, "Draw Button Pressed", Toast.LENGTH_SHORT).show();
+        draw = !(draw);
 
     }
     public void aiButtonPressed(View view){
 
-        Toast.makeText(this, "AI Button Pressed", Toast.LENGTH_SHORT).show();
+        String AImove = generateMove();
+        String moveResult = chess.start(AImove, isWhiteTurn);
 
-        String AImove = this.chess.makeAImove();
-
-//        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-//        int count = parentGrid.getChildCount();
-//
-//        ArrayList<String> validMoves = new ArrayList<String>();
-//
-//        for(int i = 0; i < count; i++){
-//            View child = parentGrid.getChildAt(i);
-//            String tag = child.getTag().toString();
-//
-//
-//        }
+        while(moveResult.equals("invalid")){
+            AImove = generateMove();
+            moveResult = chess.start(AImove, isWhiteTurn);
+        }
 
 
+
+        Toast.makeText(this, AImove+" "+moveResult, Toast.LENGTH_SHORT).show();
+
+        if(moveResult.equals("Checkmate")){
+            saveGame();
+        }
+
+        if(moveResult.equals("check")){
+            checkFlag = true;
+        }
+
+        Log.i("Moving: ", move);
+        match.addMove(AImove);
+
+
+        String[] tags = AImove.split(" ");
+
+        System.out.println(AImove);
+
+        //finding views by tag
+        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+        view1 = parentGrid.findViewWithTag(tags[0]);
+        view2 = parentGrid.findViewWithTag(tags[1]);
+
+        ImageView startimg = (ImageView) view1;
+        ImageView destimg = (ImageView) view2;
+
+        //swapping images
+        destimg.setImageDrawable(startimg.getDrawable());
+        startimg.setImageResource(android.R.color.transparent);
+
+        reset();
+        isWhiteTurn = !isWhiteTurn;
+
+    }
+
+    public String generateMove(){
+        String AImove = this.chess.makeAImove(isWhiteTurn);
+
+        while(AImove.equals("noMoves")){
+            AImove = this.chess.makeAImove(isWhiteTurn);
+        }
+
+        return AImove;
     }
 
     public void nextMovePressed(View view){

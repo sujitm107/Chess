@@ -605,8 +605,49 @@ public class Chess {
         return "valid";
     }
 
-    public String makeAImove(){
-        return null;
+    public String makeAImove(boolean isWhiteTurn){
+        int nFile = 0;
+        int nRank = 0;
+        int oFile = 0;
+        int oRank = 0;
+        boolean notFound = true;
+
+        while(notFound){
+            do{
+                nFile = (int) (Math.random()*8);
+                nRank = (int) (Math.random()*8);
+            } while(board[nRank][nFile] != null);
+
+            for(int r = 0; r<8; r++){
+                for(int f = 0; f<8; f++){
+                    if(board[r][f] == null){ continue; }
+                    System.out.println("breaking");
+                    if(board[r][f].move(board, f, r, nFile, nRank) && (board[r][f].isWhite == isWhiteTurn)){
+                        oFile = f;
+                        oRank = r;
+                        notFound = false;
+                        System.out.println("didn't break");
+                        break;
+                    }
+                    System.out.println("didn't break");
+                    if(r == 7 && f == 7){
+                        return "noMoves";
+                    }
+                }
+                if(!notFound){
+                    break;
+                }
+            }
+        }
+
+        String AImove = (char)(oFile + 97) + String.valueOf(8 - oRank) + " ";
+        AImove += (char)(nFile + 97) + String.valueOf(8 - nRank);
+
+        if(board[oRank][oFile] instanceof Pawn){
+            board[oRank][oFile].hasMoved = false;
+        }
+
+        return AImove;
     }
 
 
