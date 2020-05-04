@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        if(fis == null){
+            return;
+        }
+
         try {
             ois = new ObjectInputStream(fis);
         } catch (IOException e) {
