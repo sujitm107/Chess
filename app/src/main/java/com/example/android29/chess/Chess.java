@@ -9,8 +9,10 @@ import android.util.Log;
 import com.example.android29.ChessMatchActivity;
 import com.example.android29.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Chess {
 
@@ -619,49 +621,129 @@ public class Chess {
         return "valid";
     }
 
-    public String makeAImove(boolean isWhiteTurn){
+    static class Move{
+        int rank;
+        int file;
+
+        public Move(int file, int rank){
+            this.rank = rank;
+            this.file = file;
+        }
+    }
+
+    public String makeAImove(boolean isWhiteTurn) {
         int nFile = 0;
         int nRank = 0;
         int oFile = 0;
         int oRank = 0;
-        boolean notFound = true;
 
-        while(notFound){
-            do{
-                nFile = (int) (Math.random()*8);
-                nRank = (int) (Math.random()*8);
-            } while(board[nRank][nFile] != null);
+        ArrayList<Piece> piecesSet = new ArrayList<Piece>();
+        ArrayList<Move> validDestSet = new ArrayList<Move>();
 
-            for(int r = 0; r<8; r++){
-                for(int f = 0; f<8; f++){
-                    if(board[r][f] == null){ continue; }
-                    System.out.println("breaking");
-                    if(board[r][f].move(board, f, r, nFile, nRank) && (board[r][f].isWhite == isWhiteTurn)){
-                        oFile = f;
-                        oRank = r;
-                        notFound = false;
-                        System.out.println("didn't break");
-                        break;
-                    }
-                    System.out.println("didn't break");
-                    if(r == 7 && f == 7){
-                        return "noMoves";
-                    }
+        //generate set of White Pieces or BlackPieces
+        for (int r = 0; r < 8; r++) {
+            for (int f = 0; f < 8; f++) {
+                if (board[r][f] == null) {
+                    continue;
                 }
-                if(!notFound){
-                    break;
+                if (board[r][f].isWhite == isWhiteTurn) {
+                    piecesSet.add(board[r][f]);
                 }
             }
         }
 
-        String AImove = (char)(oFile + 97) + String.valueOf(8 - oRank) + " ";
-        AImove += (char)(nFile + 97) + String.valueOf(8 - nRank);
+        Piece randomPiece = null;
+        int randomPieceIndex = -1;
 
-        if(board[oRank][oFile] instanceof Pawn){
-            board[oRank][oFile].hasMoved = false;
-        }
+        do {
+            if(randomPiece != null){
+                piecesSet.remove(randomPiece);
+            }
+
+            randomPieceIndex = (int) (Math.random() * piecesSet.size());
+            randomPiece = piecesSet.get(randomPieceIndex);
+
+            //finding Rank and File of random piece
+            for (int r = 0; r < 8; r++) {
+                for (int f = 0; f < 8; f++) {
+                    if (board[r][f] == randomPiece) {
+                        oFile = f;
+                        oRank = r;
+                    }
+                }
+            }
+
+
+            for (int r = 0; r < 8; r++) {
+                for (int f = 0; f < 8; f++) {
+                    if (randomPiece.move(board, oFile, oRank, f, r)) {
+                        validDestSet.add(new Move(f, r));
+                    }
+                }
+            }
+        }while (validDestSet.size() == 0);
+            //pick a new piece
+            //remove the piece from the set
+
+        //4 --->
+        String AImove = null;
+        Move dest = null;
+
+        do {
+            if(dest != null){
+                validDestSet.remove(dest);
+            }
+            int randomDestIndex = (int) (Math.random() * validDestSet.size());
+            dest = validDestSet.get(randomDestIndex);
+
+            //construct our string
+
+            AImove = (char) (oFile + 97) + String.valueOf(8 - oRank) + " ";
+            AImove += (char) (dest.file + 97) + String.valueOf(8 - dest.rank);
+
+            if (board[oRank][oFile] instanceof Pawn) {
+                board[oRank][oFile].hasMoved = false;
+            }
+        } while(start(AImove, isWhiteTurn).equals("invalid"));
+
 
         return AImove;
+
+        //if(every move results in a invalid choice){
+            //remove from Moveset 4--->
+        //}
+
+
+//        boolean notFound = true;
+//
+//        while(notFound){
+//            do{
+//                nFile = (int) (Math.random()*8);
+//                nRank = (int) (Math.random()*8);
+//            } while(board[nRank][nFile] != null);
+//
+//            for(int r = 0; r<8; r++){
+//                for(int f = 0; f<8; f++){
+//                    if(board[r][f] == null){ continue; }
+//                    System.out.println("breaking");
+//                    if(board[r][f].move(board, f, r, nFile, nRank) && (board[r][f].isWhite == isWhiteTurn)){
+//                        oFile = f;
+//                        oRank = r;
+//                        notFound = false;
+//                        System.out.println("didn't break");
+//                        break;
+//                    }
+//                    System.out.println("didn't break");
+//                    if(r == 7 && f == 7){
+//                        return "noMoves";
+//                    }
+//                }
+//                if(!notFound){
+//                    break;
+//                }
+//            }
+//        }
+//
     }
 
 

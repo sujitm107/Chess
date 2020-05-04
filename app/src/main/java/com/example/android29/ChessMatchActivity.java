@@ -333,31 +333,34 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void aiButtonPressed(View view){
 
         String AImove = generateMove();
-        String moveResult = chess.start(AImove, isWhiteTurn);
 
-        while(moveResult.equals("invalid")){
-            AImove = generateMove();
-            moveResult = chess.start(AImove, isWhiteTurn);
-        }
-
-
-
-        Toast.makeText(this, AImove+" "+moveResult, Toast.LENGTH_SHORT).show();
-
-        if(moveResult.equals("Checkmate")){
+        if(AImove.equals("Checkmate")){
             saveGame();
+            return;
         }
 
-        if(moveResult.equals("check")){
-            checkFlag = true;
-        }
-
-        Log.i("Moving: ", move);
-        match.addMove(AImove);
+//        while(moveResult.equals("invalid")){
+//            AImove = generateMove();
+//            moveResult = chess.start(AImove, isWhiteTurn);
+//        }
+//
+//
+//
+//        Toast.makeText(this, AImove+" "+moveResult, Toast.LENGTH_SHORT).show();
+//
+//        if(moveResult.equals("Checkmate")){
+//            saveGame();
+//        }
+//
+//        if(moveResult.equals("check")){
+//            checkFlag = true;
+//        }
+//
+//        Log.i("Moving: ", move);
+//        match.addMove(AImove);
 
 
         String[] tags = AImove.split(" ");
-
         System.out.println(AImove);
 
         //finding views by tag
