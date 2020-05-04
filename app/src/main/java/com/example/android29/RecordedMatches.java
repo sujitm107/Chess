@@ -18,8 +18,8 @@ public class RecordedMatches  {
 
     private ArrayList<MatchNode> matches = new ArrayList<MatchNode>();
 
-    public static final String storeDir = "/Users/rachanakotamraju/Desktop/College/Sophomore Year/Spring/Software Methodology/android29/.idea/sampledata";
-    public static final String storeFile = "matches.dat";
+//    public static final String storeDir = "/Users/rachanakotamraju/Desktop/College/Sophomore Year/Spring/Software Methodology/android29/.idea/sampledata";
+//    public static final String storeFile = "matches.dat";
 
     static final long serialVersionUID = 1L;
 
@@ -96,33 +96,21 @@ public class RecordedMatches  {
 
     }
 
-    public void writeApp() throws IOException {
-        System.out.println("Writing to app");
-        ObjectOutputStream oos = new
-                ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
-
-
-        //writing object
-        oos.writeObject(recordedMatchesList);
+    public void writeApp(){
 
     }
 
-    public void readApp() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new
-                ObjectInputStream( new FileInputStream(storeDir + storeFile));
-        System.out.println("Reading App");
+    public void readApp(){
 
-        recordedMatchesList = (RecordedMatches) ois.readObject();
     }
 
     public ArrayList<MatchNode> getMatches(){
         return matches;
     }
 
-    public void addMatch(MatchNode m) throws IOException {
+    public void addMatch(MatchNode m) {
 
         matches.add(m);
-        writeApp();
     }
 
     public static RecordedMatches getInstance(){

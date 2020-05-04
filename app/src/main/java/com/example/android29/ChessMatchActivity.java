@@ -256,11 +256,7 @@ public class ChessMatchActivity extends AppCompatActivity {
                     match.setWinner(isWhiteTurn?"Black" : "White");
                     Date date = Calendar.getInstance().getTime();
                     match.setDate(date);
-                    try {
-                        RecordedMatches.recordedMatchesList.addMatch(match);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    RecordedMatches.recordedMatchesList.addMatch(match);
                     setChessBoard();
                     isWhiteTurn = true;
                     reset();
