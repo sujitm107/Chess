@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -255,7 +256,11 @@ public class ChessMatchActivity extends AppCompatActivity {
                     match.setWinner(isWhiteTurn?"Black" : "White");
                     Date date = Calendar.getInstance().getTime();
                     match.setDate(date);
-                    RecordedMatches.recordedMatchesList.addMatch(match);
+                    try {
+                        RecordedMatches.recordedMatchesList.addMatch(match);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     setChessBoard();
                     isWhiteTurn = true;
                     reset();

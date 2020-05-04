@@ -1,6 +1,13 @@
 package com.example.android29;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +18,9 @@ public class RecordedMatches  {
 
     private ArrayList<MatchNode> matches = new ArrayList<MatchNode>();
 
-    public static final String storeDir = "sampledata";
+    public static final String storeDir = "/Users/rachanakotamraju/Desktop/College/Sophomore Year/Spring/Software Methodology/android29/.idea/sampledata";
     public static final String storeFile = "matches.dat";
+
     static final long serialVersionUID = 1L;
 
     //inner class
@@ -88,21 +96,33 @@ public class RecordedMatches  {
 
     }
 
-    public void writeApp() {
+    public void writeApp() throws IOException {
+        System.out.println("Writing to app");
+        ObjectOutputStream oos = new
+                ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
 
+
+        //writing object
+        oos.writeObject(recordedMatchesList);
 
     }
 
-    public void readApp() {
+    public void readApp() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new
+                ObjectInputStream( new FileInputStream(storeDir + storeFile));
+        System.out.println("Reading App");
 
+        recordedMatchesList = (RecordedMatches) ois.readObject();
     }
 
     public ArrayList<MatchNode> getMatches(){
         return matches;
     }
 
-    public void addMatch(MatchNode m){
+    public void addMatch(MatchNode m) throws IOException {
+
         matches.add(m);
+        writeApp();
     }
 
     public static RecordedMatches getInstance(){

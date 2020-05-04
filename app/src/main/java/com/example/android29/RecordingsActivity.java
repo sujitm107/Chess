@@ -43,16 +43,8 @@ public class RecordingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayList savedState = null;
-
-        if(savedInstanceState!=null && savedInstanceState.getSerializable("Matches")!=null){
-            savedState = (ArrayList) savedInstanceState.getSerializable("Matches");
-        }
-
-
 
         ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
-
 
         final ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
 
@@ -95,5 +87,5 @@ public class RecordingsActivity extends AppCompatActivity {
     public void sortDatePressed(View view){
 
     }
-  
+
 }
