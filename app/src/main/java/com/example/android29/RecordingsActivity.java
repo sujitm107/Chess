@@ -28,12 +28,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 public class RecordingsActivity extends AppCompatActivity {
 
+    ListView matchesListView;
+    ArrayList matches;
+    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,11 @@ public class RecordingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
+        matchesListView = (ListView) findViewById(R.id.matchesListView);
 
-        final ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
+        matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
 
         matchesListView.setAdapter(arrayAdapter);
         matchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,14 +82,41 @@ public class RecordingsActivity extends AppCompatActivity {
 
     public void sortTitlePressed(View view){
         ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
-        ListView matchesListView = (ListView) findViewById(R.id.matchesListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matches);
+
+        if(matches.size() == 0){
+            noMatchestoSort();
+            return;
+        }
+
+        Collections.sort(RecordedMatches.getInstance().getMatches(), new SortByTitle());
+        Log.i("Sorting", "By Title");
+        Log.i("First:", RecordedMatches.getInstance().getMatches().get(0).toString());
+
+        matchesListView.setAdapter(arrayAdapter);
+
 
 
     }
 
     public void sortDatePressed(View view){
 
+        ArrayList matches = RecordedMatches.getInstance().getMatches(); //get ArrayList from RecordedMatchesList
+
+        if(matches.size() == 0){
+            noMatchestoSort();
+            return;
+        }
+
+        Collections.sort(RecordedMatches.getInstance().getMatches(), new SortByDate());
+        Log.i("Sorting", "By Date");
+        Log.i("First:", RecordedMatches.getInstance().getMatches().get(0).toString());
+
+        matchesListView.setAdapter(arrayAdapter);
+
+    }
+
+    public void noMatchestoSort(){
+        Toast.makeText(this, "Nothing to Sort", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -79,6 +80,10 @@ public class RecordedMatches implements Serializable {
             this.title = title;
         }
 
+        public String getTitle(){
+            return this.title;
+        }
+
         public void setMoves(ArrayList<String> moves){
             this.moves = moves;
         }
@@ -104,14 +109,6 @@ public class RecordedMatches implements Serializable {
 
     }
 
-    public void writeApp(){
-
-    }
-
-    public void readApp(){
-
-    }
-
     public static void process(RecordedMatches data){
         recordedMatchesList = data;
     }
@@ -128,5 +125,6 @@ public class RecordedMatches implements Serializable {
     public static RecordedMatches getInstance(){
         return recordedMatchesList;
     }
+
 
 }
