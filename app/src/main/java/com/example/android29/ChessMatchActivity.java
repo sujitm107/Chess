@@ -33,7 +33,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -262,6 +266,9 @@ public class ChessMatchActivity extends AppCompatActivity {
                     reset();
                     match = new RecordedMatches.MatchNode();
                 }
+
+                writeApp();
+
             }
         });
 
@@ -657,6 +664,50 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         ImageView empty32 = (ImageView) findViewById(R.id.h6ImageView);
         empty32.setImageResource(android.R.color.transparent);
+    }
+
+    public void writeApp(){
+        FileOutputStream fOut = null;
+
+        try {
+            fOut = openFileOutput("Pizza.dat", MODE_PRIVATE);
+            Log.i("State", "Success");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.i("State", "Exception");
+        }
+
+        String str = "hello";
+        //Node obj = new Node("Sally", 18);
+
+        //converting object
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(bos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            oos.writeObject(RecordedMatches.getInstance());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte [] data = bos.toByteArray();
+
+
+        try {
+            fOut.write(data);
+            Log.i("State", "Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i("State", "Exception");
+        }
     }
 
 

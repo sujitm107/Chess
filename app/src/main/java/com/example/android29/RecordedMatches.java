@@ -1,6 +1,11 @@
 package com.example.android29;
 
 
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,10 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecordedMatches  {
+import static android.content.Context.MODE_PRIVATE;
+
+public class RecordedMatches implements Serializable {
 
     //Using singleton design pattern
     public static RecordedMatches recordedMatchesList = new RecordedMatches();
@@ -24,7 +32,7 @@ public class RecordedMatches  {
     static final long serialVersionUID = 1L;
 
     //inner class
-    static class MatchNode {
+    static class MatchNode implements  Serializable{
         private String title;
         private Date date;
         private String winner;
@@ -102,6 +110,10 @@ public class RecordedMatches  {
 
     public void readApp(){
 
+    }
+
+    public static void process(RecordedMatches data){
+        recordedMatchesList = data;
     }
 
     public ArrayList<MatchNode> getMatches(){
