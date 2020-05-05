@@ -559,6 +559,7 @@
 
         <Button
             android:id="@+id/resignButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -570,6 +571,7 @@
 
         <Button
             android:id="@+id/drawButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -581,6 +583,7 @@
 
         <Button
             android:id="@+id/nextButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -592,6 +595,7 @@
 
         <Button
             android:id="@+id/prevButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="prevMovePressed"
@@ -602,6 +606,7 @@
 
         <Button
             android:id="@+id/undoButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="undoButtonPressed"
@@ -611,6 +616,7 @@
 
         <Button
             android:id="@+id/aiButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/playButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
@@ -23,6 +24,7 @@
 
     <Button
         android:id="@+id/prevMatchesButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
