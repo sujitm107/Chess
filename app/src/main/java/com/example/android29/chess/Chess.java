@@ -37,6 +37,10 @@ public class Chess {
         blackKing = board[0][4];
     }
 
+    public Piece[][] getBoard(){
+        return board;
+    }
+
     public static void main(String[] args) {
 
         boolean gameOn = true;
@@ -685,7 +689,7 @@ public class Chess {
                 if(randomPiece != null){
                     piecesSet.remove(randomPiece);
                 }
-                
+
                 if(ifCheck){
                     randomPiece = isWhiteTurn ? whiteKing : blackKing;
                     ifCheck = false;
