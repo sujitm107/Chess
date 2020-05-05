@@ -73,6 +73,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     Chess chess;
 
+    Piece[][] prevBoard;
+
     String move = "";
     String pieceToBePromoted = "";
 
@@ -89,6 +91,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
 
         setChessBoard();
+       // prevBoard = chess.getBoard();
 
         androidx.gridlayout.widget.GridLayout board = findViewById(R.id.gridLayout);
 
@@ -131,6 +134,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             Button prevMoveButton = (Button) findViewById(R.id.prevButton);
             prevMoveButton.setEnabled(false);
             prevMoveButton.setVisibility(View.GONE);
+
         }
 
     }
@@ -140,6 +144,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             return;
         }
         else{
+            prevBoard = chess.getBoard();
             Log.i("Position", view.getTag().toString() );
 
             if(start){
@@ -168,6 +173,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             }
 
 
+
             if(view1 != null && view2 != null) {
 
                 if(chess.isPawn(move) == true){
@@ -178,6 +184,8 @@ public class ChessMatchActivity extends AppCompatActivity {
                 if(chess.isPawn(move) == false){
                     lastMovePawnPromotion = false;
                 }
+
+                //prevBoard = chess.getBoard();
                 String moveResult = this.chess.start(move, isWhiteTurn);
                 if(!(moveResult.equals("valid"))){
 
@@ -394,27 +402,36 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(match.getMoves().size() == 0){
                 Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
             }else{
-                ArrayList<String> movesArray = match.getMoves();
-                String moveToUndo = movesArray.get(movesArray.size()-1);
-                String[] oldAndNew = moveToUndo.split(" ");
+//                ArrayList<String> movesArray = match.getMoves();
+//                String moveToUndo = movesArray.get(movesArray.size()-1);
+//                String[] oldAndNew = moveToUndo.split(" ");
+//
+//                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+//                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
+//                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
+//                //Swapping images
+//
+//                to.setImageDrawable(from.getDrawable());
+//                //from.setImageResource(android.R.color.transparent);
+//
+//                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
+//                putKilledPieceBack.setImageResource(chess.getLastKilled());
+//
+//
+//                isWhiteTurn = !isWhiteTurn;
+//                chess.undoMove(moveToUndo, lastMovePawnPromotion);
+//                lastMovePawnPromotion = false;
+//                match.undoMove();
+//                match.printMoves();
 
-                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
-                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
-                //Swapping images
-
-                to.setImageDrawable(from.getDrawable());
-                //from.setImageResource(android.R.color.transparent);
-
-                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
-                putKilledPieceBack.setImageResource(chess.getLastKilled());
-
-
-                isWhiteTurn = !isWhiteTurn;
-                chess.undoMove(moveToUndo, lastMovePawnPromotion);
-                lastMovePawnPromotion = false;
-                match.undoMove();
-                match.printMoves();
+                System.out.println("IN UNDO MOVE!!!");
+                Piece [][] board = chess.getBoard();
+                chess.updateBoard(prevBoard);
+                System.out.println("PREV BOARD BELOW");
+                Chess.printBoard(prevBoard);
+                System.out.println("UPDATED BOARD BELOW");
+                Chess.printBoard(chess.getBoard());
+                //board[oRank][oFile] = board[nRank][nFile];
                 justUndo = true;
             }
             refreshBoard();

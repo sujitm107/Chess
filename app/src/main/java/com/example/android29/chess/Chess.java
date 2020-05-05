@@ -26,6 +26,7 @@ public class Chess {
     private static Piece whiteKing;
     private static Piece blackKing;
     private Piece[][] board;
+   // private Piece[][] prevBoard;
 
     static Piece lastKilled;
     private boolean ifCheck = false;
@@ -275,6 +276,10 @@ public class Chess {
         }
 
 
+    }
+
+    public void updateBoard(Piece[][] prevBoard){
+        board = prevBoard;
     }
 
     /**
@@ -564,6 +569,7 @@ public class Chess {
                         }
 
                         Log.i("StartMethod:", board[oRank][oFile].toString());
+
                         board[nRank][nFile] = board[oRank][oFile];
                         board[oRank][oFile] = null;
 
@@ -844,4 +850,8 @@ public class Chess {
         }
         return android.R.color.transparent;
     }
+
+//    public Piece[][] getPrevBoard(){
+//        return prevBoard;
+//    }
 }
