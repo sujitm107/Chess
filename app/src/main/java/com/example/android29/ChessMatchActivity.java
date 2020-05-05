@@ -250,6 +250,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         final String[] choices = {"Queen", "Rook", "Bishop", "Knight"};
         final String[] shortChoices = {"Q", "R", "B", "N"};
         final AlertDialog.Builder pickPromotionPiece = new AlertDialog.Builder(this);
+        pickPromotionPiece.setCancelable(false);
         pickPromotionPiece.setTitle("Pick a piece to promote your pawn");
         pickPromotionPiece.setItems(choices, new DialogInterface.OnClickListener() {
             @Override
