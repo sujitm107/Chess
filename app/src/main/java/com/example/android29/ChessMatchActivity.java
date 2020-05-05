@@ -21,6 +21,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.InputType;
 import android.text.Layout;
 import android.util.Log;
@@ -148,7 +149,8 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(view1 != null && view2 != null) {
 
                 if(chess.isPawn(move) == true){
-                    choicesPawnPromotion(); // appended move
+                    move = choicesPawnPromotion(); // appended move
+
                 }
                 String moveResult = this.chess.start(move, isWhiteTurn);
 
@@ -230,7 +232,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         move = "";
     }
 
-    public void choicesPawnPromotion(){
+    public String choicesPawnPromotion(){
         Toast.makeText(this, "Pawn Promotion", Toast.LENGTH_SHORT).show();
 
         final String[] choices = {"Queen", "Rook", "Bishop", "Knight"};
@@ -247,8 +249,10 @@ public class ChessMatchActivity extends AppCompatActivity {
             }
 
         });
-        pickPromotionPiece.show();
-        Thread.yield();
+
+
+
+        return move;
 
     }
 
@@ -297,7 +301,6 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }
 
                 writeApp();
-
             }
         });
 
@@ -359,9 +362,16 @@ public class ChessMatchActivity extends AppCompatActivity {
         justUndo = false;
 
     }
+
+
     public void aiButtonPressed(View view){
 
-        String AImove = generateMove();
+        String AImove = this.chess.makeAImove(isWhiteTurn);
+
+        if(AImove.indexOf("check") > 0){
+            Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
+            AImove = AImove.substring(0, AImove.indexOf("check"));
+        }
 
         if(AImove.equals("Checkmate")){
             saveGame();
@@ -410,15 +420,6 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     }
 
-    public String generateMove(){
-        String AImove = this.chess.makeAImove(isWhiteTurn);
-
-        while(AImove.equals("noMoves")){
-            AImove = this.chess.makeAImove(isWhiteTurn);
-        }
-
-        return AImove;
-    }
 
     public void nextMovePressed(View view){
         if(currentMoveIndex+1 < playBackMatch.getMoves().size()){

@@ -28,6 +28,7 @@ public class Chess {
     private Piece[][] board;
 
     static Piece lastKilled;
+    private boolean ifCheck = false;
 
     public Chess(){
         board = new Piece[8][8];
@@ -664,41 +665,14 @@ public class Chess {
             }
         }
 
+
         Piece randomPiece = null;
         int randomPieceIndex = -1;
 
-        do {
-            if(randomPiece != null){
-                piecesSet.remove(randomPiece);
-            }
-
-            randomPieceIndex = (int) (Math.random() * piecesSet.size());
-            randomPiece = piecesSet.get(randomPieceIndex);
-
-            //finding Rank and File of random piece
-            for (int r = 0; r < 8; r++) {
-                for (int f = 0; f < 8; f++) {
-                    if (board[r][f] == randomPiece) {
-                        oFile = f;
-                        oRank = r;
-                    }
-                }
-            }
-
-
-            for (int r = 0; r < 8; r++) {
-                for (int f = 0; f < 8; f++) {
-                    if (randomPiece.move(board, oFile, oRank, f, r)) {
-                        validDestSet.add(new Move(f, r));
-                    }
-                }
-            }
-        }while (validDestSet.size() == 0);
-            //pick a new piece
-            //remove the piece from the set
 
         //4 --->
         String AImove = null;
+        String moveResult = null;
         Move dest = null;
 
         do {
@@ -706,6 +680,41 @@ public class Chess {
             if(dest != null){
                 validDestSet.remove(dest);
             }
+
+            while(validDestSet.size() == 0){
+                if(randomPiece != null){
+                    piecesSet.remove(randomPiece);
+                }
+                
+                if(ifCheck){
+                    randomPiece = isWhiteTurn ? whiteKing : blackKing;
+                    ifCheck = false;
+                }else {
+                    randomPieceIndex = (int) (Math.random() * piecesSet.size());
+                    randomPiece = piecesSet.get(randomPieceIndex);
+
+                    //finding Rank and File of random piece
+                    for (int r = 0; r < 8; r++) {
+                        for (int f = 0; f < 8; f++) {
+                            if (board[r][f] == randomPiece) {
+                                oFile = f;
+                                oRank = r;
+                            }
+                        }
+                    }
+                }
+
+                Log.i("Start:", board[oRank][oFile].toString());
+
+                for (int r = 0; r < 8; r++) {
+                    for (int f = 0; f < 8; f++) {
+                        if (randomPiece.move(board, oFile, oRank, f, r)) {
+                            validDestSet.add(new Move(f, r));
+                        }
+                    }
+                }
+            }
+
             int randomDestIndex = (int) (Math.random() * validDestSet.size());
             dest = validDestSet.get(randomDestIndex);
 
@@ -714,50 +723,33 @@ public class Chess {
             AImove = (char) (oFile + 97) + String.valueOf(8 - oRank) + " ";
             AImove += (char) (dest.file + 97) + String.valueOf(8 - dest.rank);
 
+            Log.i("AIMOVE", AImove);
+
             if (board[oRank][oFile] instanceof Pawn) {
                 board[oRank][oFile].hasMoved = false;
             }
-        } while(start(AImove, isWhiteTurn).equals("invalid"));
+            System.out.println("End: " + board[oRank][oFile]);
+            printBoard(board);
+
+            moveResult = start(AImove, isWhiteTurn);
+
+            if(moveResult.equals("Checkmate")){
+                AImove = moveResult;
+            }
+
+            if(moveResult.equals("check")){
+                ifCheck = true;
+                AImove += "check";
+            }
+
+        } while(moveResult.equals("invalid"));
+
 
 
         return AImove;
 
-        //if(every move results in a invalid choice){
-            //remove from Moveset 4--->
-        //}
-
-
-//        boolean notFound = true;
-//
-//        while(notFound){
-//            do{
-//                nFile = (int) (Math.random()*8);
-//                nRank = (int) (Math.random()*8);
-//            } while(board[nRank][nFile] != null);
-//
-//            for(int r = 0; r<8; r++){
-//                for(int f = 0; f<8; f++){
-//                    if(board[r][f] == null){ continue; }
-//                    System.out.println("breaking");
-//                    if(board[r][f].move(board, f, r, nFile, nRank) && (board[r][f].isWhite == isWhiteTurn)){
-//                        oFile = f;
-//                        oRank = r;
-//                        notFound = false;
-//                        System.out.println("didn't break");
-//                        break;
-//                    }
-//                    System.out.println("didn't break");
-//                    if(r == 7 && f == 7){
-//                        return "noMoves";
-//                    }
-//                }
-//                if(!notFound){
-//                    break;
-//                }
-//            }
-//        }
-//
     }
+
 
 
     public void movePlayBack(String move){
