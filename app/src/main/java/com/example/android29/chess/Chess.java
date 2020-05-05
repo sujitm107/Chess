@@ -279,7 +279,13 @@ public class Chess {
     }
 
     public void updateBoard(Piece[][] prevBoard){
-        board = prevBoard;
+
+        for(int r = 0; r<8; r++){
+            for(int f = 0; f<8; f++){
+                board[r][f] = prevBoard[r][f];
+            }
+        }
+
     }
 
     /**

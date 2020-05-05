@@ -73,7 +73,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     Chess chess;
 
-    Piece[][] prevBoard;
+    Piece[][] prevBoard = new Piece[8][8];
 
     String move = "";
     String pieceToBePromoted = "";
@@ -131,10 +131,6 @@ public class ChessMatchActivity extends AppCompatActivity {
             nextMoveButton.setEnabled(false);
             nextMoveButton.setVisibility(View.GONE);
 
-            Button prevMoveButton = (Button) findViewById(R.id.prevButton);
-            prevMoveButton.setEnabled(false);
-            prevMoveButton.setVisibility(View.GONE);
-
         }
 
     }
@@ -185,7 +181,12 @@ public class ChessMatchActivity extends AppCompatActivity {
                     lastMovePawnPromotion = false;
                 }
 
-                //prevBoard = chess.getBoard();
+                for(int r = 0; r<8; r++){
+                    for(int f = 0; f<8; f++){
+                        prevBoard[r][f] = chess.getBoard()[r][f];
+                    }
+                }
+
                 String moveResult = this.chess.start(move, isWhiteTurn);
                 if(!(moveResult.equals("valid"))){
 
@@ -228,6 +229,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 //                destimg.setImageDrawable(startimg.getDrawable());
 //                startimg.setImageResource(android.R.color.transparent);
                 System.out.println("REFRESHING BOARD");
+
+
                 refreshBoard();
 
 
@@ -363,7 +366,12 @@ public class ChessMatchActivity extends AppCompatActivity {
                 }else{
                     System.out.println("GAME TITLE: " + title);
                     match.setTitle(title);
-                    match.setWinner(isWhiteTurn?"Black" : "White");
+                    match.setWinner(isWhiteTurn? "Black Wins!" : "White Wins!");
+
+                    if(draw){
+                        match.setWinner("Draw!");
+                    }
+
                     Date date = Calendar.getInstance().getTime();
                     match.setDate(date);
                     RecordedMatches.recordedMatchesList.addMatch(match);
@@ -427,10 +435,11 @@ public class ChessMatchActivity extends AppCompatActivity {
                 System.out.println("IN UNDO MOVE!!!");
                 Piece [][] board = chess.getBoard();
                 chess.updateBoard(prevBoard);
+
                 System.out.println("PREV BOARD BELOW");
-                Chess.printBoard(prevBoard);
+                //Chess.printBoard(prevBoard);
                 System.out.println("UPDATED BOARD BELOW");
-                Chess.printBoard(chess.getBoard());
+                //Chess.printBoard(chess.getBoard());
                 //board[oRank][oFile] = board[nRank][nFile];
                 justUndo = true;
             }
@@ -550,38 +559,11 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         }
         else{
-            Toast.makeText(this, playBackMatch.getWinner() + " Wins!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, playBackMatch.getWinner(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void prevMovePressed(View view){
-        //Toast.makeText(this, "Prev Move Button Pressed", Toast.LENGTH_SHORT).show();
-        if(currentMoveIndex >=0){
-            String move = playBackMatch.getMoves().get(currentMoveIndex);
-            System.out.println("MOVE FROM PLAYBACK: " + move);
-
-            this.chess.movePlayBack(move);
-
-            String[] moves = move.split(" ");
-            String oldPosition = moves[0];
-            String newPosition = moves[1];
-
-            androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-            ImageView from = (ImageView) parentGrid.findViewWithTag(newPosition);
-            ImageView to = (ImageView) parentGrid.findViewWithTag(oldPosition);
-            //Swapping images
-            to.setImageDrawable(from.getDrawable());
-            from.setImageResource(android.R.color.transparent);
-
-            currentMoveIndex=currentMoveIndex-1;
-
-        }
-        else{
-            Toast.makeText(this, "No more moves!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
+    
     //RESET BACK BUTTON
     @Override
     public Intent getParentActivityIntent(){

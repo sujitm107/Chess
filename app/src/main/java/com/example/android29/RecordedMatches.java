@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -73,7 +74,10 @@ public class RecordedMatches implements Serializable {
         }
 
         public String toString(){
-            return title;
+
+            String datestr = new SimpleDateFormat("MM/dd/yyyy").format(this.date);
+
+            return title+" - "+datestr;
         }
 
         public void setTitle(String title){
