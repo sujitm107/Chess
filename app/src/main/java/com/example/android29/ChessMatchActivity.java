@@ -235,7 +235,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         final String[] choices = {"Queen", "Rook", "Bishop", "Knight"};
         final String[] shortChoices = {"Q", "R", "B", "N"};
-        AlertDialog.Builder pickPromotionPiece = new AlertDialog.Builder(this);
+        final AlertDialog.Builder pickPromotionPiece = new AlertDialog.Builder(this);
         pickPromotionPiece.setTitle("Pick a piece to promote your pawn");
         pickPromotionPiece.setItems(choices, new DialogInterface.OnClickListener() {
             @Override
@@ -243,10 +243,13 @@ public class ChessMatchActivity extends AppCompatActivity {
                 String piece = shortChoices[which];
                 move += piece;
                 System.out.println("Promoted Pawn Move : " + move);
+                //pickPromotionPiece.notify();
             }
-        });
 
+        });
         pickPromotionPiece.show();
+        Thread.yield();
+
     }
 
     public void resignButtonPressed(View view){
