@@ -49,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -181,11 +182,8 @@ public class ChessMatchActivity extends AppCompatActivity {
                     lastMovePawnPromotion = false;
                 }
 
-                for(int r = 0; r<8; r++){
-                    for(int f = 0; f<8; f++){
-                        prevBoard[r][f] = chess.getBoard()[r][f];
-                    }
-                }
+
+
 
                 String moveResult = this.chess.start(move, isWhiteTurn);
                 if(!(moveResult.equals("valid"))){
@@ -563,7 +561,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         }
     }
 
-    
+
     //RESET BACK BUTTON
     @Override
     public Intent getParentActivityIntent(){
