@@ -334,6 +334,8 @@ public class Chess {
                                 return false;
                             }
                         }
+
+
                         //    board[king.rank][king.file] = temp; -------------------------------------
                         return true; //this is being callled but from where?
                     }
@@ -712,7 +714,7 @@ public class Chess {
 
             boolean x = true;
 
-            
+
             validDestSet.remove(new Move(whiteKing.file, whiteKing.rank));
             validDestSet.remove(new Move(blackKing.file, blackKing.rank));
 
@@ -744,7 +746,7 @@ public class Chess {
             }
 
             if(moveResult.equals("check")){
-                ifCheck = true;
+                //ifCheck = true;
                 AImove += "check";
             }
 

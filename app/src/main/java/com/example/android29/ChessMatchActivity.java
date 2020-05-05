@@ -425,6 +425,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         if(AImove.equals("Checkmate")){
             saveGame();
+            setChessBoard();
             return;
         }
 
