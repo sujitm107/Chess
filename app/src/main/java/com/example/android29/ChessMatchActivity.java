@@ -143,8 +143,22 @@ public class ChessMatchActivity extends AppCompatActivity {
 
             if(start){
                 view1 = view;
-                move += view.getTag().toString()+" ";
+                move = view.getTag().toString()+" ";
+                int firstF = Chess.getValue(move.charAt(0));
+                int firstR = 7-Chess.getValue(move.charAt(1));
+
+                if(chess.getBoard()[firstR][firstF] == null){
+                    reset();
+                    return;
+                }
+
+                if(chess.getBoard()[firstR][firstF].isWhite != isWhiteTurn){
+                    reset();
+                    return;
+                }
+
                 start = false;
+
             } else {
                 //dest view
                 view2 = view;
@@ -415,6 +429,7 @@ public class ChessMatchActivity extends AppCompatActivity {
         if(AImove.equals("draw")){
             draw = true;
             saveGame();
+            setChessBoard();
             return;
         }
 

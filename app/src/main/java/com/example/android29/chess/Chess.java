@@ -321,7 +321,8 @@ public class Chess {
          */
 
         Piece temp = board[king.rank][king.file];
-        //board[king.rank][king.file] = null; -- WHY DID WE PUT THIS HERE?
+        //board[king.rank][king.file] = null;
+        // -- WHY DID WE PUT THIS HERE?
 
         // System.out.println("Starting check");
         for(int r = 0; r<board.length; r++){
@@ -330,20 +331,20 @@ public class Chess {
                     if((board[r][f].move(board, f, r, king.file, king.rank) == true) ){
                         if(board[r][f] instanceof Pawn){
                             if(king.file == f){
-                                //          board[king.rank][king.file] = temp; -------------------------------
+                                          //board[king.rank][king.file] = temp;
                                 return false;
                             }
                         }
 
 
-                        //    board[king.rank][king.file] = temp; -------------------------------------
+                            //board[king.rank][king.file] = temp;
                         return true; //this is being callled but from where?
                     }
                 }
             }
         }
 
-        //board[king.rank][king.file] = temp; ---------------------------
+        //board[king.rank][king.file] = temp;
         return false;
     }
 
