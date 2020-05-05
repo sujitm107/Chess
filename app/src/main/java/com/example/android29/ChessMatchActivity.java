@@ -255,7 +255,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String piece = shortChoices[which];
-                pieceToBePromoted += piece;
+                pieceToBePromoted = piece;
                 System.out.println("Promoted Pawn Move : " + piece);
                 System.out.println("Last move in match array: " + match.getMoves().get(match.getMoves().size()-1));
 
