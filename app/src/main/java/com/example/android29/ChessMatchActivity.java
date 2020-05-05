@@ -9,8 +9,14 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 
+import com.example.android29.chess.Bishop;
 import com.example.android29.chess.Chess;
+import com.example.android29.chess.King;
+import com.example.android29.chess.Knight;
+import com.example.android29.chess.Pawn;
 import com.example.android29.chess.Piece;
+import com.example.android29.chess.Queen;
+import com.example.android29.chess.Rook;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -184,12 +190,15 @@ public class ChessMatchActivity extends AppCompatActivity {
                 match.addMove(move);
                 match.printMoves();
 
-                ImageView startimg = (ImageView) view1;
-                ImageView destimg = (ImageView) view2;
+//                ImageView startimg = (ImageView) view1;
+//                ImageView destimg = (ImageView) view2;
+//
+//                //swapping images
+//                destimg.setImageDrawable(startimg.getDrawable());
+//                startimg.setImageResource(android.R.color.transparent);
+                System.out.println("REFRESHING BOARD");
+                refreshBoard();
 
-                //swapping images
-                destimg.setImageDrawable(startimg.getDrawable());
-                startimg.setImageResource(android.R.color.transparent);
 
                 justUndo = false;
 
@@ -403,16 +412,18 @@ public class ChessMatchActivity extends AppCompatActivity {
         System.out.println(AImove);
 
         //finding views by tag
-        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-        view1 = parentGrid.findViewWithTag(tags[0]);
-        view2 = parentGrid.findViewWithTag(tags[1]);
+//        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+////        view1 = parentGrid.findViewWithTag(tags[0]);
+////        view2 = parentGrid.findViewWithTag(tags[1]);
+////
+////        ImageView startimg = (ImageView) view1;
+////        ImageView destimg = (ImageView) view2;
+////
+////        //swapping images
+////        destimg.setImageDrawable(startimg.getDrawable());
+////        startimg.setImageResource(android.R.color.transparent);
 
-        ImageView startimg = (ImageView) view1;
-        ImageView destimg = (ImageView) view2;
-
-        //swapping images
-        destimg.setImageDrawable(startimg.getDrawable());
-        startimg.setImageResource(android.R.color.transparent);
+        refreshBoard();
 
         justUndo = false;
         reset();
@@ -741,6 +752,82 @@ public class ChessMatchActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.i("State", "Exception");
         }
+    }
+
+
+    public void refreshBoard(){
+        androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout); //Picture
+        Piece[][] board = this.chess.getBoard(); //actual board
+
+        int oFile = 0;
+        int oRank = 0;
+
+        for (int r = 0; r < 8; r++) {
+            for (int f = 0; f < 8; f++) {
+                oFile = f;
+                oRank = r;
+
+                String move = (char) (oFile + 97) + String.valueOf(8 - oRank);
+
+
+                System.out.println("CURRENT PIECE TAG : " + move);
+
+                ImageView currentPiece = (ImageView) parentGrid.findViewWithTag(move);
+                //ImageView currentPiece = (ImageView)parentGrid.findViewWithTag("a8");
+
+                if(currentPiece == null){
+                    System.out.println("CURRENT PIECE IS NULL");
+                }
+
+
+                if(board[r][f] == null){
+                    currentPiece.setImageResource(android.R.color.transparent);
+                }
+                else if(board[r][f].isWhite && !(board[r][f] == null)){
+                    if(board[r][f] instanceof King){
+                        currentPiece.setImageResource(R.drawable.wk);
+                    }
+
+                    else if(board[r][f] instanceof Rook){
+                        currentPiece.setImageResource(R.drawable.wr);
+                    }
+                    else if(board[r][f] instanceof Bishop){
+                        currentPiece.setImageResource(R.drawable.wb);
+                    }
+                    else if(board[r][f] instanceof Knight){
+                        currentPiece.setImageResource(R.drawable.wn);
+                    }
+                    else if(board[r][f] instanceof Pawn) {
+                        currentPiece.setImageResource(R.drawable.wp);
+                    }
+                    else if(board[r][f] instanceof Queen){
+                        currentPiece.setImageResource(R.drawable.wq);
+                    }
+                }
+                else if(!(board[r][f].isWhite)&& !(board[r][f] == null)){
+                    if(board[r][f] instanceof King){
+                        currentPiece.setImageResource(R.drawable.bk);
+                    }
+                    else if(board[r][f] instanceof Rook){
+                        currentPiece.setImageResource(R.drawable.br);
+                    }
+                    else if(board[r][f] instanceof Bishop){
+                        currentPiece.setImageResource(R.drawable.bb);
+                    }
+                    else if(board[r][f] instanceof Knight){
+                        currentPiece.setImageResource(R.drawable.bn);
+                    }
+                    else if(board[r][f] instanceof Pawn){
+                        currentPiece.setImageResource(R.drawable.bp);
+                    }
+                    else if(board[r][f] instanceof Queen){
+                        currentPiece.setImageResource(R.drawable.bq);
+                    }
+                }
+
+            }
+        }
+
     }
 
 
