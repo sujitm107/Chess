@@ -413,13 +413,35 @@ public class Chess {
     }
 
     public boolean isPawn(String move){
+        System.out.println("In is Pawn");
         String[] moves = move.split(" ");
         int oFile = getValue(moves[0].charAt(0));
         int oRank = 7-getValue(moves[0].charAt(1));
         int nFile = getValue(moves[1].charAt(0));
         int nRank = 7-getValue(moves[1].charAt(1));
         return checkPawnPromotion(board, oRank,oFile,nRank,nFile);
+    }
 
+    public boolean checkPawnPromotionAIMOVE(String move){
+
+        String[] moves = move.split(" ");
+        int oFile = getValue(moves[0].charAt(0));
+        int oRank = 7-getValue(moves[0].charAt(1));
+        int nFile = getValue(moves[1].charAt(0));
+        int nRank = 7-getValue(moves[1].charAt(1));
+
+
+        if(!(board[nRank][nFile] instanceof Pawn)){ //has to be a pawn
+            return false;
+        }
+
+        if((board[nRank][nFile].isWhite) && (nRank != 0)){
+            return false;
+        }
+        else if(!(board[nRank][nFile].isWhite) && (nRank != 7)){
+            return false;
+        }
+        return true;
     }
 
     /**
