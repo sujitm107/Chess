@@ -702,7 +702,7 @@ public class Chess {
         Move dest = null;
 
         do {
-            
+
             if(dest != null){
                 validDestSet.remove(dest);
             }
