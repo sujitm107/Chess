@@ -174,8 +174,11 @@ public class ChessMatchActivity extends AppCompatActivity {
                     choicesPawnPromotion();
                 }
                 String moveResult = this.chess.start(move, isWhiteTurn);
+                if(!(moveResult.equals("valid"))){
 
-                Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
+
+               }
 
                 if(moveResult.equals("invalid")){
                     reset();
