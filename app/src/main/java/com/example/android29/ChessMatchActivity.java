@@ -220,6 +220,8 @@ public class ChessMatchActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             draw = false;
+                            Button drawButton = findViewById(R.id.drawButton);
+                            drawButton.setText("Draw");
                         }
                     });
 
@@ -367,6 +369,8 @@ public class ChessMatchActivity extends AppCompatActivity {
     public void drawButtonPressed(View view){
 
         Toast.makeText(this, "Draw Button Pressed", Toast.LENGTH_SHORT).show();
+        Button drawButton = findViewById(R.id.drawButton);
+        drawButton.setText("Draw Requested");
         draw = !(draw);
         justUndo = false;
 
@@ -770,14 +774,14 @@ public class ChessMatchActivity extends AppCompatActivity {
                 String move = (char) (oFile + 97) + String.valueOf(8 - oRank);
 
 
-                System.out.println("CURRENT PIECE TAG : " + move);
+               // System.out.println("CURRENT PIECE TAG : " + move);
 
                 ImageView currentPiece = (ImageView) parentGrid.findViewWithTag(move);
                 //ImageView currentPiece = (ImageView)parentGrid.findViewWithTag("a8");
 
-                if(currentPiece == null){
-                    System.out.println("CURRENT PIECE IS NULL");
-                }
+//                if(currentPiece == null){
+//                    System.out.println("CURRENT PIECE IS NULL");
+//                }
 
 
                 if(board[r][f] == null){
