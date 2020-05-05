@@ -65,6 +65,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     boolean checkFlag = true;
     boolean draw = false;
     boolean justUndo;
+    boolean lastMovePawnPromotion = false;
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
     RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
 
@@ -172,6 +173,10 @@ public class ChessMatchActivity extends AppCompatActivity {
                 if(chess.isPawn(move) == true){
                     System.out.println("Right before calling pawnPromotion");
                     choicesPawnPromotion();
+                    lastMovePawnPromotion = true;
+                }
+                if(chess.isPawn(move) == false){
+                    lastMovePawnPromotion = false;
                 }
                 String moveResult = this.chess.start(move, isWhiteTurn);
                 if(!(moveResult.equals("valid"))){
@@ -304,6 +309,7 @@ public class ChessMatchActivity extends AppCompatActivity {
                     board[nRank][nFile] = new Rook(white);
                  }
                 refreshBoard();
+                lastMovePawnPromotion = true;
 
             }
 
@@ -405,11 +411,13 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
                 isWhiteTurn = !isWhiteTurn;
-                chess.undoMove(moveToUndo);
+                chess.undoMove(moveToUndo, lastMovePawnPromotion);
+                lastMovePawnPromotion = false;
                 match.undoMove();
                 match.printMoves();
                 justUndo = true;
             }
+            refreshBoard();
         }
 
     }
@@ -469,6 +477,11 @@ public class ChessMatchActivity extends AppCompatActivity {
                 board[nRank][nFile] = new Queen(white);
             //}
             refreshBoard();
+            lastMovePawnPromotion = true;
+        }
+
+        if(chess.checkPawnPromotionAIMOVE(AImove) == false){
+            lastMovePawnPromotion = false;
         }
 
 
