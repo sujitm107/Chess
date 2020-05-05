@@ -710,6 +710,9 @@ public class Chess {
                 }
             }
 
+            boolean x = true;
+
+            
             validDestSet.remove(new Move(whiteKing.file, whiteKing.rank));
             validDestSet.remove(new Move(blackKing.file, blackKing.rank));
 
