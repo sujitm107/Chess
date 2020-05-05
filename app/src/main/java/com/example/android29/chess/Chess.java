@@ -43,160 +43,160 @@ public class Chess {
 
     public static void main(String[] args) {
 
-        boolean gameOn = true;
-        boolean isWhiteTurn = true;
-
-        Scanner in = new Scanner(System.in);
-        String move;
-
-        Piece[][] board = new Piece[8][8];
-
-        setBoard(board);
-        printBoard(board);
-
-        whiteKing = board[7][4];
-        blackKing = board[0][4];
-
-
-        boolean check = false;
-        boolean prevDraw = false;
-        int oFile;
-        int oRank;
-        int nFile;
-        int nRank;
-
-
-        while(gameOn){ //can change to true actually
-            if(check){
-                System.out.println("\nCheck");
-            }
-            if(isWhiteTurn){
-                System.out.print("\nWhite's Move: ");
-                move = in.nextLine();
-            } else{
-                System.out.print("\nBlack's Move: ");
-                move = in.nextLine();
-            }
-
-            if(move.equals("resign")){
-                if(isWhiteTurn){
-                    System.out.println("\nBlack Wins");
-                } else {
-                    System.out.println("\nWhite Wins");
-                }
-                gameOn = false;
-                break; //-- gameOver;
-            }
-            else {
-
-
-                if(prevDraw == true){
-                    if(move.equals("draw")){
-                        gameOn = false;
-                        System.out.println("\ndraw");
-                        break; //game over
-                    }
-
-                    prevDraw = false;
-                }
-
-                //we are using 7 instead of 8 because if getValue returned a 0, we would go out of bounds
-                String[] moves = move.split(" ");
-                oFile = getValue(moves[0].charAt(0));
-                oRank = 7-getValue(moves[0].charAt(1));
-                nFile = getValue(moves[1].charAt(0));
-                nRank = 7-getValue(moves[1].charAt(1));
-
-                Piece newPosition = board[nRank][nFile];
-
-                if(move.substring(move.lastIndexOf(" ")+1).equals("draw?")){
-                    prevDraw = true;
-                }
-
-                if(oFile == -1 || oRank == 8 || nFile == -1 || nRank == 8){ //we set Ranks to 8 bc lines 45 and 47
-                    //System.out.println("MOVE IS OUT OF BOUNDS");
-                    System.out.println("Illegal move, try again");
-                    continue;
-                }
-
-
-                if(board[oRank][oFile] != null && (isWhiteTurn == board[oRank][oFile].isWhite)) {
-                    // System.out.println("Moving from " + oFile + " " + oRank + " to " + nFile + " " + nRank);
-                    if(board[oRank][oFile].move(board, oFile, oRank, nFile, nRank) == true){
-
-
-
-                        //checking for pawn promotion
-                        if(checkPawnPromotion(board, oRank, oFile, nRank, nFile) == true){
-                            //System.out.println("CHECK PAWN PROMOTION IS TRUE");
-                           // promotePawn(board, move.charAt(move.length()-1), oRank, oFile, nRank, nFile);
-
-                        }
-
-                      // System.out.println(board[oRank][oFile]);
-
-                        //if You are killing something
-
-                        board[nRank][nFile] = board[oRank][oFile];
-                        board[oRank][oFile] = null;
-
-                        if(board[nRank][nFile] instanceof King){
-                            if(isWhiteTurn){
-                                whiteKing = board[nRank][nFile];
-                            } else{
-                                blackKing = board[nRank][nFile];
-                            }
-                        }
-
-//                        System.out.println("Updating last moved piece");
-                        lastMove = board[nRank][nFile];
-
-                    }else{
-                        System.out.println("\nIllegal move, try again.");
-                        continue; // this should act as a redo
-                    }
-                } else {
-                    //System.out.println("WE ARE ON LINE 104");
-                    System.out.println("\nIllegal move, try again.");
-                    continue;
-                }
-
-                //invalid
-                if(check(board, isWhiteTurn ? whiteKing : blackKing)){
-                    //printBoard(board);
-                    System.out.println("\nIllegal move, try again.");
-                    reverseMove(board, oFile, oRank, nFile, nRank, newPosition);
-                    lastMove = board[oRank][oFile];
-                    //we don't have to update the king's position here because we don't allow the king to put itself in check
-                    continue;
-                }
-
-                //opposite
-                check = check(board, isWhiteTurn ? blackKing : whiteKing);
-
-                if(check){
-                   // System.out.println("running");
-                    if(checkmate(board, isWhiteTurn ? blackKing : whiteKing)){
-                        System.out.println("\nCheckmate");
-                        System.out.println(isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins");
-                        break;
-                    }
-
-                }
-
-            }
-
-           // System.out.println("BlackKing Position File "+blackKing.file+" Rank: "+blackKing.rank);
-          //  System.out.println("WhiteKing Position File "+whiteKing.file+" Rank: "+whiteKing.rank);
-
-            //end turn code
-           // System.out.println("Updating last moved piece");
-            lastMove = board[nRank][nFile];
-            System.out.println();
-            printBoard(board);
-
-            isWhiteTurn = !(isWhiteTurn);
-        }
+//        boolean gameOn = true;
+//        boolean isWhiteTurn = true;
+//
+//        Scanner in = new Scanner(System.in);
+//        String move;
+//
+//        Piece[][] board = new Piece[8][8];
+//
+//        setBoard(board);
+//        printBoard(board);
+//
+//        whiteKing = board[7][4];
+//        blackKing = board[0][4];
+//
+//
+//        boolean check = false;
+//        boolean prevDraw = false;
+//        int oFile;
+//        int oRank;
+//        int nFile;
+//        int nRank;
+//
+//
+//        while(gameOn){ //can change to true actually
+//            if(check){
+//                System.out.println("\nCheck");
+//            }
+//            if(isWhiteTurn){
+//                System.out.print("\nWhite's Move: ");
+//                move = in.nextLine();
+//            } else{
+//                System.out.print("\nBlack's Move: ");
+//                move = in.nextLine();
+//            }
+//
+//            if(move.equals("resign")){
+//                if(isWhiteTurn){
+//                    System.out.println("\nBlack Wins");
+//                } else {
+//                    System.out.println("\nWhite Wins");
+//                }
+//                gameOn = false;
+//                break; //-- gameOver;
+//            }
+//            else {
+//
+//
+//                if(prevDraw == true){
+//                    if(move.equals("draw")){
+//                        gameOn = false;
+//                        System.out.println("\ndraw");
+//                        break; //game over
+//                    }
+//
+//                    prevDraw = false;
+//                }
+//
+//                //we are using 7 instead of 8 because if getValue returned a 0, we would go out of bounds
+//                String[] moves = move.split(" ");
+//                oFile = getValue(moves[0].charAt(0));
+//                oRank = 7-getValue(moves[0].charAt(1));
+//                nFile = getValue(moves[1].charAt(0));
+//                nRank = 7-getValue(moves[1].charAt(1));
+//
+//                Piece newPosition = board[nRank][nFile];
+//
+//                if(move.substring(move.lastIndexOf(" ")+1).equals("draw?")){
+//                    prevDraw = true;
+//                }
+//
+//                if(oFile == -1 || oRank == 8 || nFile == -1 || nRank == 8){ //we set Ranks to 8 bc lines 45 and 47
+//                    //System.out.println("MOVE IS OUT OF BOUNDS");
+//                    System.out.println("Illegal move, try again");
+//                    continue;
+//                }
+//
+//
+//                if(board[oRank][oFile] != null && (isWhiteTurn == board[oRank][oFile].isWhite)) {
+//                    // System.out.println("Moving from " + oFile + " " + oRank + " to " + nFile + " " + nRank);
+//                    if(board[oRank][oFile].move(board, oFile, oRank, nFile, nRank) == true){
+//
+//
+//
+//                        //checking for pawn promotion
+//                        if(checkPawnPromotion(board, oRank, oFile, nRank, nFile) == true){
+//                            //System.out.println("CHECK PAWN PROMOTION IS TRUE");
+//                           // promotePawn(board, move.charAt(move.length()-1), oRank, oFile, nRank, nFile);
+//
+//                        }
+//
+//                      // System.out.println(board[oRank][oFile]);
+//
+//                        //if You are killing something
+//
+//                        board[nRank][nFile] = board[oRank][oFile];
+//                        board[oRank][oFile] = null;
+//
+//                        if(board[nRank][nFile] instanceof King){
+//                            if(isWhiteTurn){
+//                                whiteKing = board[nRank][nFile];
+//                            } else{
+//                                blackKing = board[nRank][nFile];
+//                            }
+//                        }
+//
+////                        System.out.println("Updating last moved piece");
+//                        lastMove = board[nRank][nFile];
+//
+//                    }else{
+//                        System.out.println("\nIllegal move, try again.");
+//                        continue; // this should act as a redo
+//                    }
+//                } else {
+//                    //System.out.println("WE ARE ON LINE 104");
+//                    System.out.println("\nIllegal move, try again.");
+//                    continue;
+//                }
+//
+//                //invalid
+//                if(check(board, isWhiteTurn ? whiteKing : blackKing)){
+//                    //printBoard(board);
+//                    System.out.println("\nIllegal move, try again.");
+//                    reverseMove(board, oFile, oRank, nFile, nRank, newPosition);
+//                    lastMove = board[oRank][oFile];
+//                    //we don't have to update the king's position here because we don't allow the king to put itself in check
+//                    continue;
+//                }
+//
+//                //opposite
+//                check = check(board, isWhiteTurn ? blackKing : whiteKing);
+//
+//                if(check){
+//                   // System.out.println("running");
+//                    if(checkmate(board, isWhiteTurn ? blackKing : whiteKing)){
+//                        System.out.println("\nCheckmate");
+//                        System.out.println(isWhiteTurn ? "\nWhite Wins" : "\nBlack Wins");
+//                        break;
+//                    }
+//
+//                }
+//
+//            }
+//
+//           // System.out.println("BlackKing Position File "+blackKing.file+" Rank: "+blackKing.rank);
+//          //  System.out.println("WhiteKing Position File "+whiteKing.file+" Rank: "+whiteKing.rank);
+//
+//            //end turn code
+//           // System.out.println("Updating last moved piece");
+//            lastMove = board[nRank][nFile];
+//            System.out.println();
+//            printBoard(board);
+//
+//            isWhiteTurn = !(isWhiteTurn);
+//        }
 
     } //end of the main
 
@@ -474,18 +474,6 @@ public class Chess {
 
     public String start(String move, boolean isWhiteTurn){
         Log.i("Message", move);
-        //boolean gameOn = true;
-        //boolean isWhiteTurn = true;
-
-        //Scanner in = new Scanner(System.in);
-
-//        Piece[][] board = new Piece[8][8];
-//
-//        setBoard(board);
-//        printBoard(board);
-//
-//        whiteKing = board[7][4];
-//        blackKing = board[0][4];
 
 
         boolean check = false;
@@ -496,11 +484,7 @@ public class Chess {
         int nRank;
 
 
-        //while(gameOn){ //can change to true actually
-//            if(check){
-//                System.out.println("\nCheck");
-//                return "check";
-//            }
+
             if(isWhiteTurn){
                 System.out.print("\nWhite's Move: ");
                 //move = in.nextLine();
@@ -508,18 +492,6 @@ public class Chess {
                 System.out.print("\nBlack's Move: ");
                 //move = in.nextLine();
             }
-
-//            if(move.equals("resign")){
-//                if(isWhiteTurn){
-//                    System.out.println("\nBlack Wins");
-//                } else {
-//                    System.out.println("\nWhite Wins");
-//                }
-//                gameOn = false;
-//                break; //-- gameOver;
-//            }
-            //else {
-
 
                 if(prevDraw == true){
                     if(move.equals("draw")){
@@ -562,10 +534,7 @@ public class Chess {
                             System.out.println("CHECK PAWN PROMOTION IS TRUE");
                             //PAWN PROMOTION HERE
 
-
                         }
-
-
                         //if you are killing something
                         if(board[nRank][nFile]!=null){
                             lastKilled = board[nRank][nFile];
@@ -632,7 +601,7 @@ public class Chess {
             System.out.println();
             printBoard(board);
 
-            isWhiteTurn = !(isWhiteTurn);
+            //isWhiteTurn = !(isWhiteTurn);
         //}
 
         return "valid";
@@ -736,6 +705,9 @@ public class Chess {
             printBoard(board);
 
             moveResult = start(AImove, isWhiteTurn);
+            /*
+
+             */
 
             if(moveResult.equals("Checkmate")){
                 AImove = moveResult;
@@ -747,8 +719,6 @@ public class Chess {
             }
 
         } while(moveResult.equals("invalid"));
-
-
 
         return AImove;
 
