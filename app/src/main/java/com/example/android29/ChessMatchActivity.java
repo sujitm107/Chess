@@ -73,6 +73,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     Chess chess;
 
     String move = "";
+    String pieceToBePromoted = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,8 +156,8 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(view1 != null && view2 != null) {
 
                 if(chess.isPawn(move) == true){
-                    move = choicesPawnPromotion(); // appended move
-
+                    System.out.println("Right before calling pawnPromotion");
+                    choicesPawnPromotion();
                 }
                 String moveResult = this.chess.start(move, isWhiteTurn);
 
@@ -254,16 +255,74 @@ public class ChessMatchActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String piece = shortChoices[which];
-                move += piece;
-                System.out.println("Promoted Pawn Move : " + move);
-                //pickPromotionPiece.notify();
+                pieceToBePromoted = piece;
+                System.out.println("Promoted Pawn Move : " + piece);
+                System.out.println("Last move in match array: " + match.getMoves().get(match.getMoves().size()-1));
+
+                String[] moves = match.getMoves().get(match.getMoves().size()-1).split(" ");
+                int oFile = getValue(moves[0].charAt(0));
+                int oRank = 7-getValue(moves[0].charAt(1));
+                int nFile = getValue(moves[1].charAt(0));
+                int nRank = 7-getValue(moves[1].charAt(1));
+
+                Piece[][] board = chess.getBoard();
+
+                boolean white = board[nRank][nFile].isWhite;
+                if(pieceToBePromoted.equals("Q")){
+                    System.out.println("Piece picked was queen");
+                    board[nRank][nFile] = new Queen(white);
+                }
+                else if(pieceToBePromoted.equals("N")){
+                    System.out.println("Piece picked was knight");
+                    board[nRank][nFile] = new Knight(white);
+                }
+                else if((pieceToBePromoted.equals("B"))){
+                    System.out.println("Piece picked was bishop");
+                    board[nRank][nFile] = new Bishop(white);
+
+                }
+                else if(pieceToBePromoted.equals("R")){
+                    System.out.println("Piece picked was rook");
+                    board[nRank][nFile] = new Rook(white);
+                 }
+                refreshBoard();
+
             }
 
         });
 
+        pickPromotionPiece.show();
 
+//        String[] moves = move.split(" ");
+//        int oFile = getValue(moves[0].charAt(0));
+//        int oRank = 7-getValue(moves[0].charAt(1));
+//        int nFile = getValue(moves[1].charAt(0));
+//        int nRank = 7-getValue(moves[1].charAt(1));
+//
+//        Piece[][] board = chess.getBoard();
+//
+//        boolean white = board[oRank][oFile].isWhite;
+//        if(pieceToBePromoted.equals("Q")){
+//            System.out.println("Piece picked was queen");
+//            board[nRank][nFile] = new Queen(white);
+//        }
+//        else if(pieceToBePromoted.equals("N")){
+//            System.out.println("Piece picked was knight");
+//            board[nRank][nFile] = new Knight(white);
+//        }
+//        else if((pieceToBePromoted.equals("B"))){
+//            System.out.println("Piece picked was bishop");
+//            board[nRank][nFile] = new Bishop(white);
+//
+//        }
+//        else if(pieceToBePromoted.equals("R")){
+//            System.out.println("Piece picked was rook");
+//            board[nRank][nFile] = new Rook(white);
+//        }
 
-        return move;
+        //refreshBoard();
+
+        return pieceToBePromoted;
 
     }
 
