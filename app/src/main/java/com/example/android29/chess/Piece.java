@@ -6,7 +6,7 @@ package com.example.android29.chess;
 public abstract class Piece {
     int file; /** current file of the piece*/
     int rank; /** current rank of the piece*/
-    boolean isWhite; /** whether the piece is black or white*/
+    public boolean isWhite; /** whether the piece is black or white*/
     String name; /** name of piece on chess board - color + actual piece (ex: wp - white pawn)*/
     boolean hasMoved; /** whether the piece has moved yet*/
 
