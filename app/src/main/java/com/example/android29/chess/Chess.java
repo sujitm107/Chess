@@ -543,7 +543,7 @@ public class Chess {
                             lastKilled = null;
                         }
 
-
+                        Log.i("StartMethod:", board[oRank][oFile].toString());
                         board[nRank][nFile] = board[oRank][oFile];
                         board[oRank][oFile] = null;
 
@@ -589,6 +589,8 @@ public class Chess {
                     }
                     return "check";
                 }
+
+
 
             //}
 
@@ -659,24 +661,24 @@ public class Chess {
                     piecesSet.remove(randomPiece);
                 }
 
-                if(ifCheck){
-                    randomPiece = isWhiteTurn ? whiteKing : blackKing;
-                    ifCheck = false;
-                }else {
-                    randomPieceIndex = (int) (Math.random() * piecesSet.size());
-                    randomPiece = piecesSet.get(randomPieceIndex);
 
-                    //finding Rank and File of random piece
-                    for (int r = 0; r < 8; r++) {
-                        for (int f = 0; f < 8; f++) {
-                            if (board[r][f] == randomPiece) {
-                                oFile = f;
-                                oRank = r;
-                            }
+                randomPieceIndex = (int) (Math.random() * piecesSet.size());
+                randomPiece = piecesSet.get(randomPieceIndex);
+
+                //finding Rank and File of random piece
+                for (int r = 0; r < 8; r++) {
+                    for (int f = 0; f < 8; f++) {
+                        if (board[r][f] == randomPiece) {
+                            oFile = f;
+                            oRank = r;
                         }
                     }
                 }
 
+
+                if(board[oRank][oFile] == null){
+                    System.out.println("Error");
+                }
                 Log.i("Start:", board[oRank][oFile].toString());
 
                 for (int r = 0; r < 8; r++) {
@@ -687,6 +689,9 @@ public class Chess {
                     }
                 }
             }
+
+            validDestSet.remove(new Move(whiteKing.file, whiteKing.rank));
+            validDestSet.remove(new Move(blackKing.file, blackKing.rank));
 
             int randomDestIndex = (int) (Math.random() * validDestSet.size());
             dest = validDestSet.get(randomDestIndex);
@@ -704,10 +709,12 @@ public class Chess {
             System.out.println("End: " + board[oRank][oFile]);
             printBoard(board);
 
-            moveResult = start(AImove, isWhiteTurn);
-            /*
+            if(board[nRank][nFile] instanceof King){
+                System.out.println("Error");
+            }
 
-             */
+            moveResult = start(AImove, isWhiteTurn);
+
 
             if(moveResult.equals("Checkmate")){
                 AImove = moveResult;
@@ -717,6 +724,7 @@ public class Chess {
                 ifCheck = true;
                 AImove += "check";
             }
+
 
         } while(moveResult.equals("invalid"));
 
