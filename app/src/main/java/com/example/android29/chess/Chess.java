@@ -321,32 +321,27 @@ public class Chess {
          */
 
         Piece temp = board[king.rank][king.file];
-        board[king.rank][king.file] = null;
+        //board[king.rank][king.file] = null; -- WHY DID WE PUT THIS HERE?
 
-      //  System.out.println(board[3][4]);
-
-       // System.out.println("Starting check");
+        // System.out.println("Starting check");
         for(int r = 0; r<board.length; r++){
             for(int f = 0; f<board[r].length; f++){
                 if((board[r][f] != null)  && (board[r][f].isWhite != king.isWhite)){
                     if((board[r][f].move(board, f, r, king.file, king.rank) == true) ){
                         if(board[r][f] instanceof Pawn){
                             if(king.file == f){
-                                board[king.rank][king.file] = temp;
+                                //          board[king.rank][king.file] = temp; -------------------------------
                                 return false;
                             }
                         }
-                      //  System.out.println(board[r][f]+" this piece can kill the king");
-                      //  System.out.println("King's File: "+king.file);
-                       // System.out.println("King's Rank: "+king.rank);
-                        board[king.rank][king.file] = temp;
+                        //    board[king.rank][king.file] = temp; -------------------------------------
                         return true; //this is being callled but from where?
                     }
                 }
             }
         }
 
-        board[king.rank][king.file] = temp;
+        //board[king.rank][king.file] = temp; ---------------------------
         return false;
     }
 
@@ -683,9 +678,9 @@ public class Chess {
                     piecesSet.remove(randomPiece);
                 }
 
-                if(piecesSet.size() <= 1){
-                    return "draw";
-                }
+//                if(piecesSet.size() <= 1){
+//                    return "draw";
+//                }
 
                 randomPieceIndex = (int) (Math.random() * piecesSet.size());
                 randomPiece = piecesSet.get(randomPieceIndex);
