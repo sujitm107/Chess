@@ -458,6 +458,13 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         match.addMove(AImove);
 
+        if(chess.checkPawnPromotionAIMOVE(AImove) == true){
+            System.out.println("AI PAWN PROMOTION");
+            choicesPawnPromotion();
+        }
+
+
+
 
         String[] tags = AImove.split(" ");
         System.out.println(AImove);
