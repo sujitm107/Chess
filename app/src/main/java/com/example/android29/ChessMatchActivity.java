@@ -2,6 +2,7 @@ package com.example.android29;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 
 import com.example.android29.chess.Chess;
+import com.example.android29.chess.Piece;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,6 +33,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -143,6 +146,10 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
             if(view1 != null && view2 != null) {
+
+                if(chess.isPawn(move) == true){
+                    choicesPawnPromotion(); // appended move
+                }
                 String moveResult = this.chess.start(move, isWhiteTurn);
 
                 Toast.makeText(this, moveResult, Toast.LENGTH_SHORT).show();
@@ -221,6 +228,25 @@ public class ChessMatchActivity extends AppCompatActivity {
         view2 = null;
         start = true;
         move = "";
+    }
+
+    public void choicesPawnPromotion(){
+        Toast.makeText(this, "Pawn Promotion", Toast.LENGTH_SHORT).show();
+
+        final String[] choices = {"Queen", "Rook", "Bishop", "Knight"};
+        final String[] shortChoices = {"Q", "R", "B", "N"};
+        AlertDialog.Builder pickPromotionPiece = new AlertDialog.Builder(this);
+        pickPromotionPiece.setTitle("Pick a piece to promote your pawn");
+        pickPromotionPiece.setItems(choices, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String piece = shortChoices[which];
+                move += piece;
+                System.out.println("Promoted Pawn Move : " + move);
+            }
+        });
+
+        pickPromotionPiece.show();
     }
 
     public void resignButtonPressed(View view){
@@ -712,6 +738,8 @@ public class ChessMatchActivity extends AppCompatActivity {
             Log.i("State", "Exception");
         }
     }
+
+
 
 
 }

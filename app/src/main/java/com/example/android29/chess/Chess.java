@@ -3,6 +3,7 @@
  */
 package com.example.android29.chess;
 
+import android.app.AlertDialog;
 import android.media.Image;
 import android.util.Log;
 
@@ -123,7 +124,7 @@ public class Chess {
                         //checking for pawn promotion
                         if(checkPawnPromotion(board, oRank, oFile, nRank, nFile) == true){
                             //System.out.println("CHECK PAWN PROMOTION IS TRUE");
-                            promotePawn(board, move.charAt(move.length()-1), oRank, oFile, nRank, nFile);
+                           // promotePawn(board, move.charAt(move.length()-1), oRank, oFile, nRank, nFile);
 
                         }
 
@@ -411,6 +412,16 @@ public class Chess {
         return true;
     }
 
+    public boolean isPawn(String move){
+        String[] moves = move.split(" ");
+        int oFile = getValue(moves[0].charAt(0));
+        int oRank = 7-getValue(moves[0].charAt(1));
+        int nFile = getValue(moves[1].charAt(0));
+        int nRank = 7-getValue(moves[1].charAt(1));
+        return checkPawnPromotion(board, oRank,oFile,nRank,nFile);
+
+    }
+
     /**
      * Determines what piece a pawn should be promoted to based on the player input
      *
@@ -543,8 +554,9 @@ public class Chess {
 
                         //checking for pawn promotion
                         if(checkPawnPromotion(board, oRank, oFile, nRank, nFile) == true){
-                            //System.out.println("CHECK PAWN PROMOTION IS TRUE");
-                            promotePawn(board, move.charAt(move.length()-1), oRank, oFile, nRank, nFile);
+                            System.out.println("CHECK PAWN PROMOTION IS TRUE");
+                            //PAWN PROMOTION HERE
+
 
                         }
 
