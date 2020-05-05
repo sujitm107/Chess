@@ -440,6 +440,12 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         String AImove = this.chess.makeAImove(isWhiteTurn);
 
+        if(AImove.equals("draw")){
+            draw = true;
+            saveGame();
+            return;
+        }
+
         if(AImove.indexOf("check") > 0){
             Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
             AImove = AImove.substring(0, AImove.indexOf("check"));
@@ -450,25 +456,7 @@ public class ChessMatchActivity extends AppCompatActivity {
             return;
         }
 
-//        while(moveResult.equals("invalid")){
-//            AImove = generateMove();
-//            moveResult = chess.start(AImove, isWhiteTurn);
-//        }
-//
-//
-//
-//        Toast.makeText(this, AImove+" "+moveResult, Toast.LENGTH_SHORT).show();
-//
-//        if(moveResult.equals("Checkmate")){
-//            saveGame();
-//        }
-//
-//        if(moveResult.equals("check")){
-//            checkFlag = true;
-//        }
-//
-//        Log.i("Moving: ", move);
-//        match.addMove(AImove);
+        match.addMove(AImove);
 
 
         String[] tags = AImove.split(" ");

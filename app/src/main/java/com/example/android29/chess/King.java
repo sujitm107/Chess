@@ -90,8 +90,8 @@ public class King extends Queen{
 
         setKingPosition(nRank, nFile);
 
-        if(super.move(board, oFile, oRank, nFile, nRank) && (Chess.check(board, this)==false)){
-           // System.out.println("Updating King's position");
+        if (super.move(board, oFile, oRank, nFile, nRank) && (Chess.check(board, this) == false)) {
+            // System.out.println("Updating King's position");
             this.hasMoved = true;
             return true;
         }

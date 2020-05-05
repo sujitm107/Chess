@@ -661,6 +661,9 @@ public class Chess {
                     piecesSet.remove(randomPiece);
                 }
 
+                if(piecesSet.size() <= 1){
+                    return "draw";
+                }
 
                 randomPieceIndex = (int) (Math.random() * piecesSet.size());
                 randomPiece = piecesSet.get(randomPieceIndex);
