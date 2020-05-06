@@ -41,7 +41,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -127,6 +130,10 @@ public class ChessMatchActivity extends AppCompatActivity {
             playBackMatch.setWinner(b.getString("winner"));
             Date date = new Date(b.getLong("date"));
             playBackMatch.setDate(date);
+
+            TextView colorText = findViewById(R.id.colorTextView);
+            colorText.setVisibility(View.GONE);
+            colorText.setEnabled(false);
         }
         else{
             Button nextMoveButton = (Button) findViewById(R.id.nextButton);
@@ -426,7 +433,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 //                putKilledPieceBack.setImageResource(chess.getLastKilled());
 //
 //
-                isWhiteTurn = !isWhiteTurn;
+
                 chess.undoMove(moveToUndo);
                 lastMovePawnPromotion = false;
 //                match.undoMove();
@@ -436,8 +443,12 @@ public class ChessMatchActivity extends AppCompatActivity {
                 Chess.updateBoard(chess.getBoard(), prevBoard);
                 match.getMoves().remove(match.getMoves().size()-1); //remove move from matches arraylist
                 justUndo = true;
+
+                isWhiteTurn = !isWhiteTurn;
             }
             refreshBoard();
+            TextView colorText = findViewById(R.id.colorTextView);
+            colorText.setText(isWhiteTurn ? "White's Turn" : "Black's Turn");
         }
 
     }
@@ -577,7 +588,7 @@ public class ChessMatchActivity extends AppCompatActivity {
                 Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(this, playBackMatch.getWinner() + " Wins!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, playBackMatch.getWinner(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -855,6 +866,9 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
     public void refreshBoard(){
+
+        TextView colorText = findViewById(R.id.colorTextView);
+        colorText.setText(isWhiteTurn ? "Black's Turn" : "White's Turn");
         androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout); //Picture
         Piece[][] board = this.chess.getBoard(); //actual board
 

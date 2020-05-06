@@ -5,6 +5,7 @@ package com.example.android29.chess;
 
 public class Pawn extends Piece{
 
+    boolean twoStep = false;
 
     public Pawn(boolean isWhite){
         this.isWhite = isWhite;
@@ -53,6 +54,17 @@ public class Pawn extends Piece{
 
                 //enpassant
                 if(pawn  == Chess.lastMove){
+                    if(pawn instanceof Pawn){
+                        Pawn x = (Pawn) pawn;
+                        if(x.twoStep == false){
+                            return false;
+                        }
+                    }
+                    else{
+                        return false;
+                    }
+
+
                     if(!checkMove(board, oFile, oRank, nFile, nRank)){
                         return false;
                     }
@@ -124,6 +136,7 @@ public class Pawn extends Piece{
             }
             //check if two space
             else if((nRank-oRank) == -2){
+
                 if(hasMoved == true){
                   //  System.out.println("Not first move! Cannot go two spaces");
                     return false;
@@ -132,6 +145,7 @@ public class Pawn extends Piece{
 
                 if(board[nRank+1][oFile]==null){
                     hasMoved = true;
+                    this.twoStep = true;
                     return true;
                 }
                 else{
@@ -151,12 +165,14 @@ public class Pawn extends Piece{
             }
             //check if 2 spaces
             if((nRank - oRank) == 2){
+
                 if(hasMoved == true){
                  //   System.out.println("Cannot move two spaces if not first turn");
                     return false;
                 }
                 if(board[nRank-1][oFile] == null){
                     hasMoved = true;
+                    this.twoStep = true;
                     return true;
                 }
                 else{
