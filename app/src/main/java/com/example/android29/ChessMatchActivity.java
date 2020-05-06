@@ -410,8 +410,8 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(match.getMoves().size() == 0){
                 Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
             }else{
-//                ArrayList<String> movesArray = match.getMoves();
-//                String moveToUndo = movesArray.get(movesArray.size()-1);
+               ArrayList<String> movesArray = match.getMoves();
+                String moveToUndo = movesArray.get(movesArray.size()-1);
 //                String[] oldAndNew = moveToUndo.split(" ");
 //
 //                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
@@ -426,14 +426,15 @@ public class ChessMatchActivity extends AppCompatActivity {
 //                putKilledPieceBack.setImageResource(chess.getLastKilled());
 //
 //
-//                isWhiteTurn = !isWhiteTurn;
-//                chess.undoMove(moveToUndo, lastMovePawnPromotion);
-//                lastMovePawnPromotion = false;
+                isWhiteTurn = !isWhiteTurn;
+                chess.undoMove(moveToUndo);
+                lastMovePawnPromotion = false;
 //                match.undoMove();
 //                match.printMoves();
                 //board[oRank][oFile] = board[nRank][nFile];
 
                 Chess.updateBoard(chess.getBoard(), prevBoard);
+                match.getMoves().remove(match.getMoves().size()-1); //remove move from matches arraylist
                 justUndo = true;
             }
             refreshBoard();
@@ -471,6 +472,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
     public void aiButtonPressed(View view){
+
+        Chess.updateBoard(prevBoard, chess.getBoard());
 
         String AImove = this.chess.makeAImove(isWhiteTurn);
 

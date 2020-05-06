@@ -785,7 +785,7 @@ public class Chess {
         System.out.println("IN MOVEPLAYBACK");
     }
 
-    public void undoMove(String move, boolean lastMovePawnPromotion){
+    public void undoMove(String move){
         String[] moves = move.split(" ");
         int oFile = getValue(moves[0].charAt(0));
         int oRank = 7-getValue(moves[0].charAt(1));
@@ -797,19 +797,19 @@ public class Chess {
             board[nRank][nFile].hasMoved = false;
         }
 
-        if(lastMovePawnPromotion == true){
-            Boolean white = board[nRank][nFile].isWhite;
-            board[oRank][oFile] = new Pawn(white);
-        }
-        else{
-            board[oRank][oFile] = board[nRank][nFile];
-        }
-        board[nRank][nFile] = lastKilled;
-        if(lastKilled != null){
-            System.out.println("PIECE LAST KILLED: " + lastKilled.name);
-        }else{
-            System.out.println("LAST KILLED IS NULL");
-        }
+//        if(lastMovePawnPromotion == true){
+//            Boolean white = board[nRank][nFile].isWhite;
+//            board[oRank][oFile] = new Pawn(white);
+//        }
+//        else{
+//            board[oRank][oFile] = board[nRank][nFile];
+//        }
+//        board[nRank][nFile] = lastKilled;
+//        if(lastKilled != null){
+//            System.out.println("PIECE LAST KILLED: " + lastKilled.name);
+//        }else{
+//            System.out.println("LAST KILLED IS NULL");
+//        }
         printBoard(board);
 
     }
