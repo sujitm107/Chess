@@ -338,7 +338,6 @@ public class ChessMatchActivity extends AppCompatActivity {
                     piecePicked = "R";
                     board[nRank][nFile] = new Rook(white);
                  }
-
                 refreshBoard();
 
             }
