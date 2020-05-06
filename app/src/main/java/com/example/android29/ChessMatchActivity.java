@@ -67,6 +67,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     boolean draw = false;
     boolean justUndo;
     boolean lastMovePawnPromotion = false;
+    boolean lastMoveCastle = false;
 
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
     RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
@@ -74,8 +75,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     int currentMoveIndex;
 
     Chess chess;
-
-    Piece[][] prevBoard = new Piece[8][8];
+    Piece[][] prevBoard;
 
     String move = "";
     String pieceToBePromoted = "";
@@ -142,7 +142,6 @@ public class ChessMatchActivity extends AppCompatActivity {
             return;
         }
         else{
-            prevBoard = chess.getBoard();
             Log.i("Position", view.getTag().toString() );
 
             if(start){
@@ -185,6 +184,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
 
+                //prevBoard = Chess.updateBoard(chess.getBoard());
+                Chess.updateBoard(prevBoard, chess.getBoard());
 
                 String moveResult = this.chess.start(move, isWhiteTurn);
                 if(!(moveResult.equals("valid"))){
@@ -409,34 +410,54 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(match.getMoves().size() == 0){
                 Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
             }else{
-                ArrayList<String> movesArray = match.getMoves();
-                String moveToUndo = movesArray.get(movesArray.size()-1);
-                String[] oldAndNew = moveToUndo.split(" ");
-
-                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
-                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
-                //Swapping images
-
-                to.setImageDrawable(from.getDrawable());
-                //from.setImageResource(android.R.color.transparent);
-
-                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
-                putKilledPieceBack.setImageResource(chess.getLastKilled());
-
-
-                isWhiteTurn = !isWhiteTurn;
-                chess.undoMove(moveToUndo, lastMovePawnPromotion);
-                lastMovePawnPromotion = false;
-                match.undoMove();
-                match.printMoves();
+//                ArrayList<String> movesArray = match.getMoves();
+//                String moveToUndo = movesArray.get(movesArray.size()-1);
+//                String[] oldAndNew = moveToUndo.split(" ");
+//
+//                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+//                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
+//                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
+//                //Swapping images
+//
+//                to.setImageDrawable(from.getDrawable());
+//                //from.setImageResource(android.R.color.transparent);
+//
+//                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
+//                putKilledPieceBack.setImageResource(chess.getLastKilled());
+//
+//
+//                isWhiteTurn = !isWhiteTurn;
+//                chess.undoMove(moveToUndo, lastMovePawnPromotion);
+//                lastMovePawnPromotion = false;
+//                match.undoMove();
+//                match.printMoves();
                 //board[oRank][oFile] = board[nRank][nFile];
+
+                Chess.updateBoard(chess.getBoard(), prevBoard);
                 justUndo = true;
             }
             refreshBoard();
         }
 
     }
+
+//    public boolean wasLastCastle(String move){
+//        String[] moves = move.split(" ");
+//        int oFile = getValue(moves[0].charAt(0));
+//        int oRank = 7-getValue(moves[0].charAt(1));
+//        int nFile = getValue(moves[1].charAt(0));
+//        int nRank = 7-getValue(moves[1].charAt(1));
+//
+//        if(chess.getBoard()[nRank][nFile] instanceof King){
+//            if(chess.getBoard()[nRank][nFile].isWhite){
+//                if(nFile == 6 && oFile==4 && nRank == 0 && nFile == 0 && chess.getBoard()[0][5] instanceof Rook )
+//            }
+//
+//            else{
+//
+//            }
+//        }
+//    }
 
     public void drawButtonPressed(View view){
 
@@ -584,6 +605,7 @@ public class ChessMatchActivity extends AppCompatActivity {
 
     public void setChessBoard(){
         //set chess board - black pieces
+        prevBoard = new Piece[8][8];
         justUndo = false;
         isWhiteTurn = true;
         chess = new Chess();

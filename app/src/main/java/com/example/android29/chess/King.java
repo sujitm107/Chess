@@ -3,6 +3,8 @@
  */
 package com.example.android29.chess;
 
+import com.example.android29.ChessMatchActivity;
+
 public class King extends Queen{
 
     public King(boolean isWhite){
@@ -70,6 +72,7 @@ public class King extends Queen{
             //castle approved
 
           //  System.out.println("Castling");
+
 
             int oldrookFile = nFile > 4 ? 7 : 0;
             int newrookFile = nFile > 4 ? 5 : 3;
