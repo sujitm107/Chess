@@ -314,27 +314,32 @@ public class ChessMatchActivity extends AppCompatActivity {
                 int nRank = 7-getValue(moves[1].charAt(1));
 
                 Piece[][] board = chess.getBoard();
+                String piecePicked = "Q";
 
                 boolean white = board[nRank][nFile].isWhite;
                 if(pieceToBePromoted.equals("Q")){
                     System.out.println("Piece picked was queen");
+                    piecePicked = "Q";
                     board[nRank][nFile] = new Queen(white);
                 }
                 else if(pieceToBePromoted.equals("N")){
                     System.out.println("Piece picked was knight");
+                    piecePicked = "N";
                     board[nRank][nFile] = new Knight(white);
                 }
                 else if((pieceToBePromoted.equals("B"))){
                     System.out.println("Piece picked was bishop");
+                    piecePicked = "B";
                     board[nRank][nFile] = new Bishop(white);
 
                 }
                 else if(pieceToBePromoted.equals("R")){
                     System.out.println("Piece picked was rook");
+                    piecePicked = "R";
                     board[nRank][nFile] = new Rook(white);
                  }
+
                 refreshBoard();
-                lastMovePawnPromotion = true;
 
             }
 
@@ -574,9 +579,8 @@ public class ChessMatchActivity extends AppCompatActivity {
             String move = playBackMatch.getMoves().get(currentMoveIndex+1);
             System.out.println("MOVE FROM PLAYBACK: " + move);
 
-           // this.chess.movePlayBack(move);
-
             this.chess.start(move, isWhiteTurn);
+
 
 //            String[] moves = move.split(" ");
 //            String oldPosition = moves[0];

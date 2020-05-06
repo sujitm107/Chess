@@ -581,7 +581,6 @@ public class Chess {
                         if(checkPawnPromotion(board, oRank, oFile, nRank, nFile) == true){
                             System.out.println("CHECK PAWN PROMOTION IS TRUE");
                             //PAWN PROMOTION HERE
-
                         }
                         //if you are killing something
                         if(board[nRank][nFile]!=null){
