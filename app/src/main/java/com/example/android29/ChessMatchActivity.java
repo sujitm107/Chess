@@ -67,6 +67,7 @@ public class ChessMatchActivity extends AppCompatActivity {
     boolean draw = false;
     boolean justUndo;
     boolean lastMovePawnPromotion = false;
+
     RecordedMatches.MatchNode match = new RecordedMatches.MatchNode();
     RecordedMatches.MatchNode playBackMatch = new RecordedMatches.MatchNode();
 
@@ -408,36 +409,27 @@ public class ChessMatchActivity extends AppCompatActivity {
             if(match.getMoves().size() == 0){
                 Toast.makeText(this, "No moves to undo!", Toast.LENGTH_SHORT).show();
             }else{
-//                ArrayList<String> movesArray = match.getMoves();
-//                String moveToUndo = movesArray.get(movesArray.size()-1);
-//                String[] oldAndNew = moveToUndo.split(" ");
-//
-//                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-//                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
-//                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
-//                //Swapping images
-//
-//                to.setImageDrawable(from.getDrawable());
-//                //from.setImageResource(android.R.color.transparent);
-//
-//                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
-//                putKilledPieceBack.setImageResource(chess.getLastKilled());
-//
-//
-//                isWhiteTurn = !isWhiteTurn;
-//                chess.undoMove(moveToUndo, lastMovePawnPromotion);
-//                lastMovePawnPromotion = false;
-//                match.undoMove();
-//                match.printMoves();
+                ArrayList<String> movesArray = match.getMoves();
+                String moveToUndo = movesArray.get(movesArray.size()-1);
+                String[] oldAndNew = moveToUndo.split(" ");
 
-                System.out.println("IN UNDO MOVE!!!");
-                Piece [][] board = chess.getBoard();
-                chess.updateBoard(prevBoard);
+                androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+                ImageView from = (ImageView) parentGrid.findViewWithTag(oldAndNew[1]);
+                ImageView to = (ImageView) parentGrid.findViewWithTag(oldAndNew[0]);
+                //Swapping images
 
-                System.out.println("PREV BOARD BELOW");
-                //Chess.printBoard(prevBoard);
-                System.out.println("UPDATED BOARD BELOW");
-                //Chess.printBoard(chess.getBoard());
+                to.setImageDrawable(from.getDrawable());
+                //from.setImageResource(android.R.color.transparent);
+
+                ImageView putKilledPieceBack = (ImageView)parentGrid.findViewWithTag(oldAndNew[1]);
+                putKilledPieceBack.setImageResource(chess.getLastKilled());
+
+
+                isWhiteTurn = !isWhiteTurn;
+                chess.undoMove(moveToUndo, lastMovePawnPromotion);
+                lastMovePawnPromotion = false;
+                match.undoMove();
+                match.printMoves();
                 //board[oRank][oFile] = board[nRank][nFile];
                 justUndo = true;
             }
@@ -557,7 +549,13 @@ public class ChessMatchActivity extends AppCompatActivity {
 
         }
         else{
-            Toast.makeText(this, playBackMatch.getWinner(), Toast.LENGTH_SHORT).show();
+            if(playBackMatch.getWinner().equals("Draw!")){
+                Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, playBackMatch.getWinner() + " Wins!", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
