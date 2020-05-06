@@ -246,6 +246,8 @@ public class ChessMatchActivity extends AppCompatActivity {
 
 
                 refreshBoard();
+                TextView colorText = findViewById(R.id.colorTextView);
+                colorText.setText(isWhiteTurn ? "White's Turn" : "Black's Turn");
 
 
                 justUndo = false;
