@@ -180,16 +180,14 @@ public class ChessMatchActivity extends AppCompatActivity {
 
             if(view1 != null && view2 != null) {
 
-                if(chess.isPawn(move) == true){
-                    System.out.println("Right before calling pawnPromotion");
-                    choicesPawnPromotion();
-                    lastMovePawnPromotion = true;
-                }
-                if(chess.isPawn(move) == false){
-                    lastMovePawnPromotion = false;
-                }
-
-
+//                if(chess.isPawn(move) == true){
+//                    System.out.println("Right before calling pawnPromotion");
+//                    choicesPawnPromotion();
+//                    lastMovePawnPromotion = true;
+//                }
+//                if(chess.isPawn(move) == false){
+//                    lastMovePawnPromotion = false;
+//                }
 
                 //prevBoard = Chess.updateBoard(chess.getBoard());
                 Chess.updateBoard(prevBoard, chess.getBoard());
@@ -204,6 +202,15 @@ public class ChessMatchActivity extends AppCompatActivity {
                 if(moveResult.equals("invalid")){
                     reset();
                     return;
+                }
+
+                if(chess.isPawn(move) == true){
+                    System.out.println("Right before calling pawnPromotion");
+                    choicesPawnPromotion();
+                    lastMovePawnPromotion = true;
+                }
+                if(chess.isPawn(move) == false){
+                    lastMovePawnPromotion = false;
                 }
 
                 if(moveResult.equals("Checkmate")){
@@ -567,20 +574,24 @@ public class ChessMatchActivity extends AppCompatActivity {
             String move = playBackMatch.getMoves().get(currentMoveIndex+1);
             System.out.println("MOVE FROM PLAYBACK: " + move);
 
-            this.chess.movePlayBack(move);
+           // this.chess.movePlayBack(move);
 
-            String[] moves = move.split(" ");
-            String oldPosition = moves[0];
-            String newPosition = moves[1];
+            this.chess.start(move, isWhiteTurn);
 
-            androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
-            ImageView from = (ImageView) parentGrid.findViewWithTag(oldPosition);
-            ImageView to = (ImageView) parentGrid.findViewWithTag(newPosition);
-            //Swapping images
-            to.setImageDrawable(from.getDrawable());
-            from.setImageResource(android.R.color.transparent);
+//            String[] moves = move.split(" ");
+//            String oldPosition = moves[0];
+//            String newPosition = moves[1];
+
+//            androidx.gridlayout.widget.GridLayout parentGrid = findViewById(R.id.gridLayout);
+//            ImageView from = (ImageView) parentGrid.findViewWithTag(oldPosition);
+//            ImageView to = (ImageView) parentGrid.findViewWithTag(newPosition);
+//            //Swapping images
+//            to.setImageDrawable(from.getDrawable());
+//            from.setImageResource(android.R.color.transparent);
 
             currentMoveIndex=currentMoveIndex+1;
+            refreshBoard();
+            isWhiteTurn = !isWhiteTurn;
 
         }
         else{

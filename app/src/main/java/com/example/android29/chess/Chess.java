@@ -413,14 +413,31 @@ public class Chess {
      * @return boolean, true if pawn promotion is valid, false otherwise
      */
     public static boolean checkPawnPromotion(Piece[][] board, int oRank, int oFile, int nRank, int nFile){
-        if(!(board[oRank][oFile] instanceof Pawn)){ //has to be a pawn
+
+//        if((!(oRank == 7)) || (!(oRank==2))){
+//            return false;
+//        }
+
+//        if(!(board[oRank][oFile] instanceof Pawn)){ //has to be a pawn
+//            return false;
+//        }
+//
+//        if((board[oRank][oFile].isWhite) && (nRank != 0)){
+//            return false;
+//        }
+//        else if(!(board[oRank][oFile].isWhite) && (nRank != 7)){
+//            return false;
+//        }
+//        return true;
+
+        if(!(board[nRank][nFile] instanceof Pawn)){ //has to be a pawn
             return false;
         }
 
-        if((board[oRank][oFile].isWhite) && (nRank != 0)){
+        if((board[nRank][nFile].isWhite) && (oRank != 1)){
             return false;
         }
-        else if(!(board[oRank][oFile].isWhite) && (nRank != 7)){
+        else if(!(board[nRank][nFile].isWhite) && (oRank != 6)){
             return false;
         }
         return true;
